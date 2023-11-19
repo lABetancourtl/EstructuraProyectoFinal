@@ -69,8 +69,6 @@ public class Gestor implements Serializable {
         try {
             HashMap<String, Proceso> listaProcesos1 = Persistencia.cargarProcesos();
             listaProcesos = listaProcesos1;
-            cargarActividades();
-            cargarTareas();
             // Utiliza listaProcesos según sea necesario
         } catch (FileNotFoundException e) {
             System.out.println("Archivo no encontrado: " + e.getMessage());
@@ -81,7 +79,7 @@ public class Gestor implements Serializable {
         }
     }
 
-    public void cargarActividades() throws IOException {
+    public void cargarActividades()  {
         try {
             LinkedList<Actividad> listaActividades1 = Persistencia.cargarActividades();
             listaActividades = listaActividades1;
@@ -93,14 +91,14 @@ public class Gestor implements Serializable {
             e.printStackTrace();
         }
     }
-    public void cargarTareas() throws  IOException{
+    public void cargarTareas()  {
         try {
-            Queue<Tarea> listaTareas1 = Persistencia.cargarTareas();
-            listaTareas1 = listaTareas;
-        } catch (FileNotFoundException e){
+            Queue<Tarea> listaTareasCargadas = Persistencia.cargarTareas();
+            listaTareas = listaTareasCargadas; // Asigna las tareas cargadas a la variable de instancia
+        } catch (FileNotFoundException e) {
             System.out.println("Archivo no encontrado: " + e.getMessage());
             e.printStackTrace();
-        }catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Error de entrada/salida: " + e.getMessage());
             e.printStackTrace();
         }
