@@ -15,8 +15,8 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
-        double screenWidth = 400; //java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-        double screenHeight =500; //java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        double screenWidth = 400;
+        double screenHeight =500;
         Scene scene = new Scene(fxmlLoader.load(), screenWidth, screenHeight);
         stage.setMaximized(false);
         stage.setResizable(true);

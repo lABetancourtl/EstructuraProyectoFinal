@@ -96,4 +96,13 @@ public class Proceso implements Serializable {
     public void setLista_Actividades_In_Proceso() {
         this.lista_Actividades_In_Proceso = lista_Actividades_In_Proceso;
     }
+
+    @Override
+    public String toString() {
+        return "Proceso{" +
+                "id_Proceso='" + id_Proceso + '\'' +
+                ", nombre_Proceso='" + nombre_Proceso + '\'' +
+                ", lista_Actividades_In_Proceso=" + lista_Actividades_In_Proceso +
+                '}';
+    }
 }

@@ -66,7 +66,7 @@
                         <Insets />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="BT_BuscadorGeneral" mnemonicParsing="false" styleClass="search-button" stylesheets="@../../../Values/Styles.css" text="Search">
+                  <Button fx:id="BT_BuscadorGeneral" mnemonicParsing="false" onAction="#buscadoGeneral" styleClass="search-button" stylesheets="@../../../Values/Styles.css" text="Search">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font></Button>

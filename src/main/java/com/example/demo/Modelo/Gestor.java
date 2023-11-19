@@ -15,13 +15,16 @@ public class Gestor implements Serializable {
     private static final long serialVersionUID = 1L;
     private HashMap<String, Usuario> listaUsuarios = new HashMap<>();
 
-
+    boolean admin = false;
     private HashMap<String, Proceso> listaProcesos = new HashMap<>();
     private LinkedList<Actividad> listaActividades = new LinkedList<>();
     private Queue<Tarea> listaTareas = new LinkedList<>();
 
 
     public Gestor() {
+
+        Usuario usuario = new Usuario("123", "123", "Anderson", "123", "Administrador");
+        listaUsuarios.put(usuario.getUsuario(),usuario);
 
     }
 
@@ -108,7 +111,6 @@ public class Gestor implements Serializable {
 
 
     public void inicializarDatos() {
-        Usuario usuario = new Usuario("123", "123", "Anderson", "123", "Administrador");
         Actividad actividad = new Actividad();
         Actividad actividad1 = new Actividad("Comer", "3 veces al dia", "Si");
         LinkedList<Actividad> lista = new LinkedList<>();
@@ -118,7 +120,7 @@ public class Gestor implements Serializable {
 
         listaProcesos.put(proceso1.getId_Proceso(), proceso1);
         listaProcesos.put(proceso2.getId_Proceso(), proceso2);
-        listaUsuarios.put(usuario.getIdUsuario(), usuario);
+
 
         listaActividades.add(actividad1);
         listaTareas.add(tarea);
@@ -131,25 +133,34 @@ public class Gestor implements Serializable {
     public ArrayList<Proceso> buscarActividad(String nombreActividad) {
         ArrayList<Proceso> procesosConActividad = new ArrayList<>();
 
-        HashMap<String, Proceso> listaProcesos = this.getListaProcesos();
+        HashMap<String, Proceso> listaProcesos = getListaProcesos();
 
-        if (listaProcesos != null) {
+
             for (Proceso proceso : listaProcesos.values()) {
                 LinkedList<Actividad> actividades = proceso.getLista_Actividades_In_Proceso();
 
                 for (Actividad actividad : actividades) {
                     if (actividad.getNombre_Actividad() != null && actividad.getNombre_Actividad().equals(nombreActividad)) {
+                        System.out.println("Añadir proceso");
                         procesosConActividad.add(proceso);
                         break;
                     }
                 }
             }
-        }
+
 
         return procesosConActividad;
     }
 
 
+    public Actividad obtenerActividadPorNombre(String nombreActividad) {
+        for (Actividad actividad : listaActividades) {
+            if (actividad.getNombre_Actividad().equalsIgnoreCase(nombreActividad)) {
+                return actividad;
+            }
+        }
+        return null; // Si no se encuentra la actividad
+    }
 
     public Gestor(HashMap<String, Proceso> listaProcesos) {
         this.listaProcesos = listaProcesos;
@@ -189,5 +200,13 @@ public class Gestor implements Serializable {
 
     public void setListaUsuarios(HashMap<String, Usuario> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 }
