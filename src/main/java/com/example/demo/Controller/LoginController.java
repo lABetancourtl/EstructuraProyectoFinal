@@ -59,7 +59,6 @@ public class LoginController {
                 } else {
                     gestor.setAdmin(false);
                 }
-                cargarVentanaPrincipal();
             }
         } catch (UsuarioNoEncontradoException e) {
             // Mostrar un mensaje de error al usuario
