@@ -84,7 +84,6 @@ public class Persistencia {
         ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_ACTIVIDAD, contenido, false); // Cambié 'true' a 'false' para sobrescribir el archivo
     }
 
-
     public static void guardarTareas(Queue<Tarea> listaTareas) throws IOException {
         String contenido = "";
         for (Tarea tarea : listaTareas) {
@@ -105,7 +104,6 @@ public class Persistencia {
         ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_USUARIOS, contenido, true);
     }
 
-    public static HashMap<String, Proceso> cargarProcesos() throws IOException {
     public static HashMap<String, Proceso> cargarProcesos() throws FileNotFoundException, IOException {
         HashMap<String, Proceso> listaProcesosCargados = new HashMap<>();
 
@@ -135,20 +133,6 @@ public class Persistencia {
         for (String linea : lineas) {
             String[] partesActividad = linea.split("@");
             if (partesActividad.length < 4) {
-                System.out.println("Línea con formato incorrecto: " + linea);
-                continue;
-            }
-
-            Actividad actividad = new Actividad();
-            actividad.setNombre_Actividad(partesActividad[0]);
-            actividad.setDescripcion_Actividad(partesActividad[1]);
-
-            try {
-                actividad.setEsObligatoria_Actividad(String.valueOf(Boolean.parseBoolean(partesActividad[2])));
-            } catch (Exception e) {
-                System.out.println("Error al convertir esObligatoria_Actividad: " + e.getMessage());
-                continue;
-            }
                 continue; // O manejar el error de formato
             }
             Actividad actividad = new Actividad();
@@ -165,41 +149,6 @@ public class Persistencia {
                 }
             }
             actividad.setTareas(tareas);
-            listaActividades.add(actividad);
-        }
-
-        System.out.println("Número total de actividades cargadas: " + listaActividades.size());
-        return listaActividades;
-    }
-
-//    public static LinkedList<Actividad> cargarActividades() throws IOException {
-//        List<String> lineas = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_ACTIVIDAD);
-//        LinkedList<Actividad> listaActividades = new LinkedList<>();
-//
-//        for (String linea : lineas) {
-//            String[] partesActividad = linea.split("@");
-//            if (partesActividad.length < 4) {
-//                continue; // O manejar el error de formato
-//            }
-//            Actividad actividad = new Actividad();
-//            actividad.setNombre_Actividad(partesActividad[0]);
-//            actividad.setDescripcion_Actividad(partesActividad[1]);
-//            actividad.setEsObligatoria_Actividad(String.valueOf(Boolean.parseBoolean(partesActividad[2])));
-//            listaActividades.add(actividad);
-//
-//            LinkedList<Tarea> tareas = new LinkedList<>();
-//            for (String nombreTarea : partesActividad[3].split("\\$")) {
-//                if (!nombreTarea.isEmpty()) {
-//                    Tarea tarea = new Tarea();
-//                    tarea.setNombre_Tarea(nombreTarea);
-//                    tareas.add(tarea);
-//                }
-//            }
-//            actividad.setTareas(tareas);
-//        }
-//        System.out.println(listaActividades.size());
-//        return listaActividades;
-//    }
 
             listaActividades.add(actividad);
         }
