@@ -56,4 +56,15 @@ public class Actividad implements Serializable {
     public void setTareas(Queue<Tarea> tareas) {
         this.tareas = tareas;
     }
+
+
+    @Override
+    public String toString() {
+        return "Actividad{" +
+                "nombre_Actividad='" + nombre_Actividad + '\'' +
+                ", descripcion_Actividad='" + descripcion_Actividad + '\'' +
+                ", esObligatoria_Actividad='" + esObligatoria_Actividad + '\'' +
+                ", tareas=" + tareas +
+                '}';
+    }
 }

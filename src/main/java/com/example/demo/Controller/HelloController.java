@@ -1202,30 +1202,54 @@ public class HelloController implements Initializable {
 
         String opcionSelecionada = CB_OpcionBusquedad.getValue();
 
-        if (opcionSelecionada.equals("Actividad")) {
+        if (opcionSelecionada.equalsIgnoreCase("Actividad")) {
 
             String nombreActividad = TF_BuscadorGeneral.getText();
             ArrayList<Proceso> procesosConActividad = gestor.buscarActividad(nombreActividad);
 
             if (procesosConActividad.isEmpty()) {
-                TA_DecripcionBusquedad.setText("No se encontró la actividad " + nombreActividad);
+                // No se encontró la actividad en ningún proceso
+                TA_DecripcionBusquedad.setText("No se encuentra la actividad " + nombreActividad + " en ningún proceso.");
+                System.out.println("No se encontró en ningún proceso");
+
             } else {
+                // Se encontró la actividad en al menos un proceso
                 StringBuilder resultado = new StringBuilder("Se encontró la actividad " + nombreActividad + " en los siguientes procesos:\n");
 
                 for (Proceso proceso : procesosConActividad) {
                     resultado.append(proceso.toString()).append("\n");
                     resultado.append(nombreActividad).append(" es la actividad número ").append(proceso.obtenerNumeroActividad(nombreActividad)).append(" de este proceso\n\n");
+
+                    // Obtener la actividad
+                    Actividad actividadEncontrada = gestor.obtenerActividadPorNombre(nombreActividad);
+                    if (actividadEncontrada != null) {
+                        // Mostrar la descripción de la actividad
+                        resultado.append("Descripción de la actividad: ").append(actividadEncontrada.getDescripcion_Actividad()).append("\n");
+
+                        // Obtener tareas asociadas
+                        LinkedList<Tarea> tareasAsociadas = (LinkedList<Tarea>) actividadEncontrada.getTareas();
+                        if (!tareasAsociadas.isEmpty()) {
+                            // Mostrar las tareas asociadas
+                            resultado.append("Tareas asociadas:\n");
+                            for (Tarea tarea : tareasAsociadas) {
+                                resultado.append(tarea.toString()).append("\n");
+                            }
+                        } else {
+                            // No hay tareas asociadas
+                            resultado.append("No tiene tareas asociadas.\n");
+                        }
+                    }
                 }
 
                 TA_DecripcionBusquedad.setText(resultado.toString());
             }
-        }else{
-
-
-
         }
     }
 
+    /**
+     * Deshabilitar botones de usuario si escoge que es una actividad lo que busca
+     * @param event
+     */
     @FXML
     void opcionesBusquedad(ActionEvent event) {
 
