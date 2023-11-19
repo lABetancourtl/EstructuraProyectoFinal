@@ -96,7 +96,6 @@ public class Persistencia {
     }
 
     public static HashMap<String, Proceso> cargarProcesos() throws IOException {
-    public static HashMap<String, Proceso> cargarProcesos () throws IOException {
         HashMap<String, Proceso> listaProcesosCargados = new HashMap<>();
 
         List<String> contenido = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_PROCESO); // Asegúrate de que esta ruta sea correcta
@@ -128,10 +127,6 @@ public class Persistencia {
 //            if (partesActividad.length < 4) {
 //                continue; // O manejar el error de formato
 //            }
-            String[] partesActividad = linea.split("@");
-            if (partesActividad.length < 4) {
-                continue; // O manejar el error de formato
-            }
             Actividad actividad = new Actividad();
             actividad.setNombre_Actividad(partesActividad[0]);
             actividad.setDescripcion_Actividad(partesActividad[1]);
@@ -148,19 +143,6 @@ public class Persistencia {
 //            }
 //            actividad.setTareas(tareas);
         }
-        return listaActividades;
-    }
-            LinkedList<Tarea> tareas = new LinkedList<>();
-            for (String nombreTarea : partesActividad[3].split("\\$")) {
-                if (!nombreTarea.isEmpty()) {
-                    Tarea tarea = new Tarea();
-                    tarea.setNombre_Tarea(nombreTarea);
-                    tareas.add(tarea);
-                }
-            }
-            actividad.setTareas(tareas);
-        }
-        System.out.println(listaActividades.size());
         return listaActividades;
     }
 
@@ -184,6 +166,3 @@ public class Persistencia {
         return colaTareas;
     }
 }
-
-}
-
