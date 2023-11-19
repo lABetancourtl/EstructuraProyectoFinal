@@ -1190,8 +1190,16 @@ public class HelloController implements Initializable {
                 TA_DecripcionBusquedad.setText("No se encuentra la actividad " + nombreActividad + " en ningún proceso.");
             }else {
                 //Se encontro la actividad
-                TA_DecripcionBusquedad.setText(gestor.buscarActividadesYProcesosAsociados(nombreActividad).toString());
+                TA_DecripcionBusquedad.appendText(procesosConActividad.toString());
+                Actividad actividadEncontrada = gestor.obtenerActividadPorNombre(nombreActividad);
+                if (actividadEncontrada != null) {
+                    // Mostrar la descripción de la actividad
+                    TA_DecripcionBusquedad.appendText("Descripción de la actividad: " + "\n"
+                            + actividadEncontrada.getDescripcion_Actividad() + "\n"
+                            + actividadEncontrada.getEsObligatoria_Actividad() + "\n");
+                }
             }
+
         }
     }
 

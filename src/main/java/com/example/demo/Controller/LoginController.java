@@ -58,6 +58,7 @@ public class LoginController {
 
                     cargarVentanaPrincipal();
                     gestor.setAdmin(true);
+
                 } else {
 
                 }

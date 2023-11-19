@@ -150,7 +150,9 @@ public class Gestor implements Serializable {
 
         for (Proceso proceso : listaProcesos.values()) {
             if (contieneActividad(nombreActividad)) {
-                procesosConActividad.add("Actividad '" + nombreActividad + "' encontrada en proceso: " + proceso.getId_Proceso());
+                procesosConActividad.add("Descripcion de la busquedad:"+"\n"+
+                        "Actividad: " + nombreActividad + "\n"+
+                        "encontrada en proceso: " + proceso.getNombre_Proceso()+"\n\n");
             }
         }
 
