@@ -305,8 +305,8 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        gestor.inicializarDatos();
-        gestor.cargarDatosArchivos();
+        gestor.inicializarDatos();
+//        gestor.cargarDatosArchivos();
         TA_Descripccion_Actividad_Seleccionada.setWrapText(true);
         TA_Descripcion_Tarea_Seleccionada.setWrapText(true);
 

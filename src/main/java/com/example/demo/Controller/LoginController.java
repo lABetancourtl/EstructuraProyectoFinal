@@ -55,6 +55,7 @@ public class LoginController {
             boolean[] acceso = iniciarSesion(usuario, contrasena);
             if (acceso[0] ) {
                 if (acceso[1]) {
+
                     cargarVentanaPrincipal();
                     gestor.setAdmin(true);
                 } else {
