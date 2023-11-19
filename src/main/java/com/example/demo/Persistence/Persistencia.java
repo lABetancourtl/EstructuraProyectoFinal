@@ -15,22 +15,12 @@ import java.util.Queue;
 
 public class Persistencia {
 
-    public static final String RUTA_ARCHIVO_TAREA = "C://td//Archivo_Tarea//ArchivoTarea.txt";
+    public static final String RUTA_ARCHIVO_TAREA = "src/resources/ArchivoTarea.txt";
+    public static final String RUTA_ARCHIVO_ACTIVIDAD = "src/resources/ArchivoActividad.txt";
+    public static final String RUTA_ARCHIVO_PROCESO = "src/resources/ArchivoProceso.txt";
+    public static final String RUTA_ARCHIVO_USUARIOS = "src/resources/AchivoUsuarios.txt";
 
-    public static final String RUTA_ARCHIVO_ACTIVIDAD = "C://td//Archivo_Actividad//ArchivoActividad.txt";
 
-    public static final String RUTA_ARCHIVO_PROCESO = "C://td//Achivo_Proceso//ArchivoProceso.txt";
-    public static final String RUTA_ARCHIVO_USUARIOS = "C://td//Achivo_Usuario//AchivoUsuarios.txt";
-
-    //Metodo para guardar los datos del Proceso en un txt seprado por ;
-
-    /*
-     * EXPORTAR PRODUCTO EN ARCHIVO DE TEXTO
-     *
-     * @param idProceso
-     * @param nombreProceso
-     * @throws IOException
-     */
     public static void guardarProceso(HashMap<String, Proceso> listaProceso) throws IOException {
         String contenido = "";
         String contenidoAxuliar = "";
