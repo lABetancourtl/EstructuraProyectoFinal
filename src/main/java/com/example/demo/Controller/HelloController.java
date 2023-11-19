@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 
 public class HelloController implements Initializable {
 
+
     int opcionCrearActividad = 0;
     int opcionCrearTarea = 0;
     Gestor gestor = new Gestor();
@@ -311,6 +312,7 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+//a
         if (!gestor.isAdmin()) {
             BT_Crear_Proceso.setDisable(false);
             BT_Eliminar_Proceso.setDisable(false);
