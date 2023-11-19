@@ -6,10 +6,7 @@ import com.example.demo.Persistence.Persistencia;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class Gestor implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -129,19 +126,17 @@ public class Gestor implements Serializable {
 
 
     // Aqui edito Ruben
-    public ArrayList<Proceso> buscarActividad(String nombreActividad) {
-        ArrayList<Proceso> procesosConActividad = new ArrayList<>();
-
-        HashMap<String, Proceso> listaProcesos = getListaProcesos();
-
+    public HashMap<String,Proceso> buscarActividad(String nombreActividad) {
+        HashMap<String, Proceso> procesosConActividad = new HashMap<>();
 
             for (Proceso proceso : listaProcesos.values()) {
+                System.out.println("Buscando procesos");
                 LinkedList<Actividad> actividades = proceso.getLista_Actividades_In_Proceso();
 
                 for (Actividad actividad : actividades) {
                     if (actividad.getNombre_Actividad() != null && actividad.getNombre_Actividad().equals(nombreActividad)) {
                         System.out.println("Añadir proceso");
-                        procesosConActividad.add(proceso);
+                        procesosConActividad.put(proceso.getId_Proceso(),proceso);
                         break;
                     }
                 }
@@ -149,6 +144,25 @@ public class Gestor implements Serializable {
 
 
         return procesosConActividad;
+    }
+    public List<String> buscarActividadesYProcesosAsociados(String nombreActividad) {
+        List<String> procesosConActividad = new LinkedList<>();
+
+        for (Proceso proceso : listaProcesos.values()) {
+            if (contieneActividad(nombreActividad)) {
+                procesosConActividad.add("Actividad '" + nombreActividad + "' encontrada en proceso: " + proceso.getId_Proceso());
+            }
+        }
+
+        return procesosConActividad;
+    }
+    public boolean contieneActividad(String nombreActividad) {
+        for (Actividad actividad : listaActividades) {
+            if (actividad.getNombre_Actividad().equalsIgnoreCase(nombreActividad)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
