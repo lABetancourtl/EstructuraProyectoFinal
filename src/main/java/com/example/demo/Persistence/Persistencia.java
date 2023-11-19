@@ -84,6 +84,7 @@ public class Persistencia {
         ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_ACTIVIDAD, contenido, false); // Cambié 'true' a 'false' para sobrescribir el archivo
     }
 
+
     public static void guardarTareas(Queue<Tarea> listaTareas) throws IOException {
         String contenido = "";
         for (Tarea tarea : listaTareas) {
@@ -103,8 +104,7 @@ public class Persistencia {
         }
         ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_USUARIOS, contenido, true);
     }
-
-    public static HashMap<String, Proceso> cargarProcesos() throws FileNotFoundException, IOException {
+    public static HashMap<String, Proceso> cargarProcesos () throws IOException {
         HashMap<String, Proceso> listaProcesosCargados = new HashMap<>();
 
         List<String> contenido = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_PROCESO); // Asegúrate de que esta ruta sea correcta
@@ -139,6 +139,7 @@ public class Persistencia {
             actividad.setNombre_Actividad(partesActividad[0]);
             actividad.setDescripcion_Actividad(partesActividad[1]);
             actividad.setEsObligatoria_Actividad(String.valueOf(Boolean.parseBoolean(partesActividad[2])));
+            listaActividades.add(actividad);
 
             LinkedList<Tarea> tareas = new LinkedList<>();
             for (String nombreTarea : partesActividad[3].split("\\$")) {
@@ -149,11 +150,11 @@ public class Persistencia {
                 }
             }
             actividad.setTareas(tareas);
-
-            listaActividades.add(actividad);
         }
+        System.out.println(listaActividades.size());
         return listaActividades;
     }
+
     public static Queue<Tarea> cargarTareas() throws IOException {
         List<String> lineas = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_TAREA);
         Queue<Tarea> colaTareas = new LinkedList<>();
@@ -174,5 +175,5 @@ public class Persistencia {
         }
         return colaTareas;
     }
-
 }
+
