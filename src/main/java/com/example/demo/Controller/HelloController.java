@@ -24,6 +24,7 @@ public class HelloController implements Initializable {
     int opcionCrearActividad = 0;
     int opcionCrearTarea = 0;
     Gestor gestor = new Gestor();
+
     TreeSet<Proceso> listaProcesos = new TreeSet<>();
 
     private Actividad ultimaActividadCreada;
@@ -290,6 +291,8 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+//        gestor.inicializarDatos();
+        gestor.cargarDatosArchivos();
         TA_Descripccion_Actividad_Seleccionada.setWrapText(true);
         TA_Descripcion_Tarea_Seleccionada.setWrapText(true);
 
@@ -857,9 +860,6 @@ public class HelloController implements Initializable {
                     } else {
                         mostrarMensaje("Crear Actividad", "Creación Fallida", "No se permiten tareas opcionales seguidas", Alert.AlertType.INFORMATION);
                     }
-
-
-
                     break;
                 case 2:
                     int i = Integer.parseInt(TF_Posicion_Dada_Crear_Tarea.getText());
