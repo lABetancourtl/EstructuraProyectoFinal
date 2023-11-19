@@ -24,27 +24,8 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
-    public void cargarVentanaPrincipal() {
 
-        try {
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
 
-            double screenWidth = java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-            double screenHeight =java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root, screenHeight, screenWidth );
-            Stage stage = new Stage ();
-            stage.centerOnScreen();
-            stage.setTitle("UQGESTOR");
-            stage.setMaximized(true);
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
 
     public static void main(String[] args) {
         launch();
