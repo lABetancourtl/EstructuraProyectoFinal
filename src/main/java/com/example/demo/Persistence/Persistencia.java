@@ -122,6 +122,8 @@ public class Persistencia {
         return listaProcesosCargados;
     }
 
+    //Este es el metodo bueno
+
     public static LinkedList<Actividad> cargarActividades() throws IOException {
         LinkedList<Actividad> listaActividades = new LinkedList<>();
         List<String> lineas = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_ACTIVIDAD);
