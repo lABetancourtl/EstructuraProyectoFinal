@@ -1,7 +1,7 @@
 package com.example.demo.Modelo;
 
-import javax.mail.*;
-import javax.mail.internet.*;
+import javax.mail.Session;
+import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 public class Correos {
     private static String Mailfrom = "zpayitaz@gmail.com";
