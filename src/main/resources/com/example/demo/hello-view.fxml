@@ -324,7 +324,7 @@
                   </TableView>
                   <HBox alignment="CENTER" prefHeight="45.0" prefWidth="300.0" spacing="20.0">
                      <children>
-                        <Button fx:id="BT_Editar_Actividad" mnemonicParsing="false" styleClass="search-button" stylesheets="@../../../Values/Styles.css" text="Editar">
+                        <Button fx:id="BT_Editar_Actividad" mnemonicParsing="false" onAction="#AC_BT_Editar_Actividad" styleClass="search-button" stylesheets="@../../../Values/Styles.css" text="Editar">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -983,14 +983,14 @@
                   <String fx:value="shadow" />
                </styleClass>
             </AnchorPane>
-            <AnchorPane fx:id="AP_Editar_Usuario" layoutX="48.0" layoutY="83.0" prefHeight="731.0" prefWidth="760.0" styleClass="white-bg" stylesheets="@../../../Values/Styles.css" visible="false">
+            <AnchorPane fx:id="AP_Editar_Usuario" layoutX="48.0" layoutY="83.0" prefHeight="820.0" prefWidth="760.0" styleClass="white-bg" stylesheets="@../../../Values/Styles.css" visible="false" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
                <children>
                   <Label layoutX="14.0" layoutY="14.0" styleClass="shadow" stylesheets="@../../../Values/Styles.css" text="Editar Usuario" textFill="#0000004d">
                      <font>
                         <Font name="System Bold" size="36.0" />
                      </font>
                   </Label>
-                  <VBox alignment="CENTER" layoutX="315.0" layoutY="608.0" prefHeight="109.0" prefWidth="126.0" spacing="15.0" styleClass="search-crear" stylesheets="@../../../Values/Styles.css">
+                  <VBox alignment="CENTER" layoutX="315.0" layoutY="696.0" prefHeight="109.0" prefWidth="126.0" spacing="15.0" styleClass="search-crear" stylesheets="@../../../Values/Styles.css">
                      <children>
                         <Button fx:id="BT_Actualizar_In_EditarUsuario" mnemonicParsing="false" onAction="#AC_BT_Actualizar_In_EditarUsuario" styleClass="search-button" stylesheets="@../../../Values/Styles.css" text="Actualizar">
                            <font>
@@ -1020,14 +1020,14 @@
                   </VBox>
                   <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="193.0" spacing="50.0">
                      <children>
-                        <VBox prefHeight="400.0" prefWidth="338.0" spacing="10.0">
+                        <VBox prefWidth="338.0" spacing="10.0">
                            <children>
                               <Label styleClass="shadow" stylesheets="@../../../Values/Styles.css" text="Procesos del usuario" textFill="#0000004d">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <TableView fx:id="TW_Editar_ProcesoInUsuario" prefHeight="325.0" prefWidth="200.0" stylesheets="@../../../Values/Styles.css">
+                              <TableView fx:id="TW_Editar_ProcesoInUsuario" prefHeight="180.0" prefWidth="100.0" stylesheets="@../../../Values/Styles.css">
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
@@ -1065,7 +1065,7 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <TableView fx:id="TW_ProcesosDisponibles_In_Crear_Usuario" prefHeight="325.0" prefWidth="100.0" stylesheets="@../../../Values/Styles.css">
+                              <TableView fx:id="TW_ProcesosDisponibles_In_Crear_Usuario" prefHeight="180.0" prefWidth="100.0" stylesheets="@../../../Values/Styles.css">
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
@@ -1126,6 +1126,188 @@
                               <TextField fx:id="TF_Nombre_EditarUsuario" prefWidth="335.0" promptText="Nombre" styleClass="bordes-buscador" stylesheets="@../../../Values/Styles.css" />
                            </children>
                         </VBox>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="469.0" spacing="50.0">
+                     <children>
+                        <VBox prefWidth="338.0" spacing="10.0">
+                           <children>
+                              <Label styleClass="shadow" stylesheets="@../../../Values/Styles.css" text="Actividades del usuario" textFill="#0000004d">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <TableView fx:id="TW_ActividadesUsuarioSeleccionado" prefHeight="180.0" prefWidth="200.0" stylesheets="@../../../Values/Styles.css">
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                                 <columns>
+                                    <TableColumn fx:id="TC_NombreActividadUsuarioSeleccionado" prefWidth="75.0" text="Nombre" />
+                                    <TableColumn fx:id="TC_ObligatorioActividadUsuarioSeleccionado" prefWidth="75.0" text="Obligatorio" />
+                                 </columns>
+                                 <styleClass>
+                                    <String fx:value="shadow" />
+                                    <String fx:value="tablas-view" />
+                                 </styleClass>
+                              </TableView>
+                              <HBox alignment="TOP_RIGHT" prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                        <VBox prefWidth="338.0" spacing="10.0">
+                           <children>
+                              <Label styleClass="shadow" stylesheets="@../../../Values/Styles.css" text="Tareas del usuario" textFill="#0000004d">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <TableView fx:id="TW_TareasUsuarioSeleccionado" prefHeight="180.0" prefWidth="100.0" stylesheets="@../../../Values/Styles.css">
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                                 <columns>
+                                    <TableColumn fx:id="TC_NombreTareaUsuarioSelccionado" prefWidth="75.0" text="Nombre" />
+                                    <TableColumn fx:id="TC_ObligatorioTareaUsuarioSeleccionado" prefWidth="75.0" text="Obligatorio" />
+                                 </columns>
+                                 <styleClass>
+                                    <String fx:value="tablas-view" />
+                                    <String fx:value="shadow" />
+                                 </styleClass>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="AP_Editar_Actividad" layoutX="48.0" layoutY="83.0" prefHeight="713.0" prefWidth="759.0" styleClass="white-bg" stylesheets="@../../../Values/Styles.css">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" styleClass="shadow" stylesheets="@../../../Values/Styles.css" text="Editar Actividad" textFill="#0000004d">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <VBox alignment="CENTER" layoutX="317.0" layoutY="576.0" prefHeight="109.0" prefWidth="126.0" spacing="15.0" styleClass="search-crear" stylesheets="@../../../Values/Styles.css">
+                     <children>
+                        <Button fx:id="BT_Actualizar_In_EditarActividad" mnemonicParsing="false" onAction="#AC_BT_Actualizar_In_EditarActividad" styleClass="search-button" stylesheets="@../../../Values/Styles.css" text="Actualizar">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../Imagen/guardar-instagram.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="BT_Cancelar_In_EditarActividad" mnemonicParsing="false" onAction="#AC_BT_Cancelar_In_EditarActividad" styleClass="search-button" stylesheets="@../../../Values/Styles.css" text="Cancelar">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../Imagen/Close.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="15.0" layoutY="75.0" spacing="10.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="TF_Nombre_EditarActividad" prefWidth="205.0" promptText="Nombre" styleClass="bordes-buscador" stylesheets="@../../../Values/Styles.css" />
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="156.0" spacing="50.0">
+                     <children>
+                        <VBox prefHeight="400.0" prefWidth="338.0" spacing="10.0">
+                           <children>
+                              <Label styleClass="shadow" stylesheets="@../../../Values/Styles.css" text="Tareas de la actividad" textFill="#0000004d">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <TableView fx:id="TW_TareasPresentes_In_EditarActividad" prefHeight="325.0" prefWidth="200.0" stylesheets="@../../../Values/Styles.css">
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                                 <columns>
+                                    <TableColumn fx:id="TC_NombreTareaPresente_In_EditarActividad" prefWidth="75.0" text="Nombre" />
+                                    <TableColumn fx:id="TC_ObligatorioTareaPresente_In_EditarActividad" prefWidth="75.0" text="Obligatorio" />
+                                 </columns>
+                                 <styleClass>
+                                    <String fx:value="shadow" />
+                                    <String fx:value="tablas-view" />
+                                 </styleClass>
+                              </TableView>
+                              <HBox alignment="TOP_RIGHT" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="BT_Remove_In_EditarActividad" mnemonicParsing="false" onAction="#AC_BT_Remove_In_EditarActividad" styleClass="search-button" stylesheets="@../../../Values/Styles.css" text="Remove Tarea">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../Imagen/remover-archivo.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox prefWidth="338.0" spacing="10.0">
+                           <children>
+                              <Label styleClass="shadow" stylesheets="@../../../Values/Styles.css" text="Tareas disponibles" textFill="#0000004d">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <TableView fx:id="TW_TareasDisponibles_InEditarActividad" prefHeight="325.0" prefWidth="100.0" stylesheets="@../../../Values/Styles.css">
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                                 <columns>
+                                    <TableColumn fx:id="TC_NombreTareaDisponible_In_EditarActividad" prefWidth="75.0" text="Nombre" />
+                                    <TableColumn fx:id="TC_ObligatorioTareaDisponible_In_EditarActividad" prefWidth="75.0" text="Obligatorio" />
+                                 </columns>
+                                 <styleClass>
+                                    <String fx:value="tablas-view" />
+                                    <String fx:value="shadow" />
+                                 </styleClass>
+                              </TableView>
+                              <Button fx:id="BT_AddTarea_In_EditarActividad" mnemonicParsing="false" onAction="#AC_BT_AddTarea_In_EditarActividad" styleClass="search-button" stylesheets="@../../../Values/Styles.css" text="Add Tarea">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../imagen/Plus.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <VBox layoutX="404.0" layoutY="83.0" spacing="10.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Obligatorio">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Text>
+                        <ComboBox fx:id="CB_Obligatorio_In_EditarActividad" prefWidth="205.0" styleClass="bordes-buscador" stylesheets="@../../../Values/Styles.css" />
                      </children>
                   </VBox>
                </children>
