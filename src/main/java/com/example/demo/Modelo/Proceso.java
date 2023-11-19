@@ -57,6 +57,19 @@ public class Proceso implements Serializable {
 //    }
 
 
+//Aqui edito Ruben
+    //obtengo el numero de actividades
+    public int obtenerNumeroActividad(String nombreActividad) {
+        for (int i = 0; i < lista_Actividades_In_Proceso.size(); i++) {
+            if (lista_Actividades_In_Proceso.get(i).getNombre_Actividad().equals(nombreActividad)) {
+                return i + 1; // Devuelve el número de la actividad (1-indexed)
+            }
+        }
+        return -1; // Si no se encuentra la actividad
+    }
+
+
+
     // Getters y setters
 
 

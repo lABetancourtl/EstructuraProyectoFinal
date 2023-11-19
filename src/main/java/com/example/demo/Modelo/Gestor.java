@@ -5,6 +5,7 @@ import com.example.demo.Persistence.Persistencia;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -80,6 +81,30 @@ public class Gestor implements Serializable {
     public void guardaArchivos() throws IOException {
         Persistencia.guardarProceso(listaProcesos);
         Persistencia.guardarActividad(listaActividades);
+    }
+
+
+
+    // Aqui edito Ruben
+    public ArrayList<Proceso> buscarActividad(String nombreActividad) {
+        ArrayList<Proceso> procesosConActividad = new ArrayList<>();
+
+        HashMap<String, Proceso> listaProcesos = this.getListaProcesos();
+
+        if (listaProcesos != null) {
+            for (Proceso proceso : listaProcesos.values()) {
+                LinkedList<Actividad> actividades = proceso.getLista_Actividades_In_Proceso();
+
+                for (Actividad actividad : actividades) {
+                    if (actividad.getNombre_Actividad() != null && actividad.getNombre_Actividad().equals(nombreActividad)) {
+                        procesosConActividad.add(proceso);
+                        break;
+                    }
+                }
+            }
+        }
+
+        return procesosConActividad;
     }
 
 
