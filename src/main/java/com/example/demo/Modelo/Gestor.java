@@ -155,7 +155,37 @@ public class Gestor implements Serializable {
 
         return procesosConActividad;
     }
+    public List<String> buscarActividadesYProcesosAsociados(String nombreActividad) {
+        List<String> procesosConActividad = new LinkedList<>();
 
+        for (Proceso proceso : listaProcesos.values()) {
+            if (contieneActividad(nombreActividad)) {
+                procesosConActividad.add("Descripcion de la busquedad:"+"\n"+
+                        "Actividad: " + nombreActividad + "\n"+
+                        "encontrada en proceso: " + proceso.getNombre_Proceso()+"\n\n");
+            }
+        }
+
+        return procesosConActividad;
+    }
+
+   /* public boolean contieneActividad(String nombreActividad) {
+        for (Actividad actividad : listaActividades) {
+            if (actividad.getNombre_Actividad().equalsIgnoreCase(nombreActividad)) {
+                return true;
+            }
+        }
+        return false;
+    }*/
+
+     public boolean contieneActividad(String nombreActividad) {
+        for (Actividad actividad : listaActividades) {
+            if (actividad.getNombre_Actividad().equalsIgnoreCase(nombreActividad)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public Actividad obtenerActividadPorNombre(String nombreActividad) {
         for (Actividad actividad : listaActividades) {
@@ -166,6 +196,14 @@ public class Gestor implements Serializable {
         return null; // Si no se encuentra la actividad
     }
 
+    public Tarea buscarTarea(String tipoBusqueda, String nombreActividad) {
+        for (Tarea tarea : listaTareas) {
+            if (tarea.getNombre_Tarea().equalsIgnoreCase(nombreActividad)) {
+                return tarea;
+            }
+        }
+        return null;
+    }
     public Gestor(HashMap<String, Proceso> listaProcesos) {
         this.listaProcesos = listaProcesos;
     }
@@ -213,4 +251,6 @@ public class Gestor implements Serializable {
     public void setAdmin(boolean admin) {
         this.admin = admin;
     }
+
+
 }

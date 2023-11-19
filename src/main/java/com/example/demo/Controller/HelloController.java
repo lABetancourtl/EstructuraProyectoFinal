@@ -1198,8 +1198,55 @@ public class HelloController implements Initializable {
     }
 
 
+    /// Aqui edito Ruben
+    @FXML
+    void buscadoGeneral(ActionEvent event) {
+        String nombreActividad = TF_BuscadorGeneral.getText();
+        String opcionSelecionada = CB_OpcionBusquedad.getValue();
+        if (opcionSelecionada.equalsIgnoreCase("Actividad")) {
+
+            List<String> procesosConActividad = gestor.buscarActividadesYProcesosAsociados(nombreActividad);
+            if (procesosConActividad.isEmpty()) {
+                // No se encontró la actividad en ningún proceso
+                TA_DecripcionBusquedad.setText("No se encuentra la actividad " + nombreActividad + " en ningún proceso.");
+            }else {
+                //Se encontro la actividad
+                TA_DecripcionBusquedad.appendText(procesosConActividad.toString());
+                Actividad actividadEncontrada = gestor.obtenerActividadPorNombre(nombreActividad);
+                if (actividadEncontrada != null) {
+                    // Mostrar la descripción de la actividad
+                    TA_DecripcionBusquedad.appendText("Descripción de la actividad: " + "\n"
+                            + actividadEncontrada.getDescripcion_Actividad() + "\n"
+                            +"Es obligatoria: " + "\n"
+                            + actividadEncontrada.getEsObligatoria_Actividad() + "\n\n");
+
+                    // Obtener tareas asociadas
+                    LinkedList<Tarea> tareasAsociadas = (LinkedList<Tarea>) actividadEncontrada.getTareas();
+                    if (!tareasAsociadas.isEmpty()) {
+                        // Mostrar las tareas asociadas
+                        TA_DecripcionBusquedad.appendText("Tareas asociadas:\n");
+                        for (Tarea tarea : tareasAsociadas) {
+                            TA_DecripcionBusquedad.appendText(tarea.toString()+"\n");
+                        }
+                    } else {
+                        // No hay tareas asociadas
+                        TA_DecripcionBusquedad.appendText("No tiene tareas asociadas.\n");
+                    }
+                }
+            }
+
+        }else {
+
+            String tipoBusqueda = obtenerTipoBusqueda();  // Implementa la lógica para obtener el tipo de búsqueda
+            Tarea tareaEncontrada = gestor.buscarTarea(tipoBusqueda, nombreActividad);
+        }
+    }
 
 
+    private String obtenerTipoBusqueda() {
+
+        return null;
+    }
 
     /// Aqui edito Ruben
 
@@ -1247,10 +1294,8 @@ public class HelloController implements Initializable {
                     }
                 }
 
-                TA_DecripcionBusquedad.setText(resultado.toString());
-            }
-        }
-    }
+
+   
 
     /**
      * Deshabilitar botones de usuario si escoge que es una actividad lo que busca

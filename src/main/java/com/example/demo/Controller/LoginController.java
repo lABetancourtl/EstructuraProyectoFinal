@@ -56,6 +56,7 @@ public class LoginController {
             if (acceso[0] ) {
                 if (acceso[1]) {
                     gestor.setAdmin(true);
+
                 } else {
                     gestor.setAdmin(false);
                 }
