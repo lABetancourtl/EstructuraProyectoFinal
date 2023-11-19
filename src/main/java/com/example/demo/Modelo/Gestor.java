@@ -133,25 +133,34 @@ public class Gestor implements Serializable {
     public ArrayList<Proceso> buscarActividad(String nombreActividad) {
         ArrayList<Proceso> procesosConActividad = new ArrayList<>();
 
-        HashMap<String, Proceso> listaProcesos = this.getListaProcesos();
+        HashMap<String, Proceso> listaProcesos = getListaProcesos();
 
-        if (listaProcesos != null) {
+
             for (Proceso proceso : listaProcesos.values()) {
                 LinkedList<Actividad> actividades = proceso.getLista_Actividades_In_Proceso();
 
                 for (Actividad actividad : actividades) {
                     if (actividad.getNombre_Actividad() != null && actividad.getNombre_Actividad().equals(nombreActividad)) {
+                        System.out.println("Añadir proceso");
                         procesosConActividad.add(proceso);
                         break;
                     }
                 }
             }
-        }
+
 
         return procesosConActividad;
     }
 
 
+    public Actividad obtenerActividadPorNombre(String nombreActividad) {
+        for (Actividad actividad : listaActividades) {
+            if (actividad.getNombre_Actividad().equalsIgnoreCase(nombreActividad)) {
+                return actividad;
+            }
+        }
+        return null; // Si no se encuentra la actividad
+    }
 
     public Gestor(HashMap<String, Proceso> listaProcesos) {
         this.listaProcesos = listaProcesos;
