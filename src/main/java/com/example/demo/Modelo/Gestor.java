@@ -13,13 +13,16 @@ public class Gestor implements Serializable {
     private static final long serialVersionUID = 1L;
     private HashMap<String, Usuario> listaUsuarios = new HashMap<>();
 
+    boolean admin = false;
+
     Usuario usuario = new Usuario("123","123","Anderson","123","Administrador");
+    Usuario usuario1 = new Usuario("321","321","Valeria","321","Normal");
+
 
 
     private HashMap<String, Proceso> listaProcesos = new HashMap<>();
     private LinkedList<Actividad> listaActividades = new LinkedList<>();
     private Queue<Tarea> listaTareas = new LinkedList<>();
-
 
 
     Actividad actividad = new Actividad();
@@ -33,11 +36,15 @@ public class Gestor implements Serializable {
     Tarea tarea = new Tarea("Anderson", "salir", "Si","60" );
 
 
+
+
+
     public Gestor() {
         listaProcesos.put(proceso1.getId_Proceso(),proceso1);
         listaProcesos.put(proceso2.getId_Proceso(),proceso2);
 
         listaUsuarios.put(usuario.getIdUsuario(), usuario);
+        listaUsuarios.put(usuario1.getIdUsuario(), usuario1);
 
         listaActividades.add(actividad1);
 
@@ -122,5 +129,13 @@ public class Gestor implements Serializable {
 
     public void setListaUsuarios(HashMap<String, Usuario> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 }

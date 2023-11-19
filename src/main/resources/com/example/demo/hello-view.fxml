@@ -116,7 +116,7 @@
                   <String fx:value="shadow" />
                </styleClass>
             </VBox>
-            <Button fx:id="BT_Usuarios" mnemonicParsing="false" onAction="#AC_Usuarios" prefWidth="410.0" stylesheets="@../../../Values/Styles.css" text="Usuarios" VBox.vgrow="ALWAYS">
+            <Button fx:id="BT_Usuarios" mnemonicParsing="false" onAction="#AC_Usuarios" prefWidth="410.0" stylesheets="@../../../Values/Styles.css" text="Usuario" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -426,13 +426,18 @@
                   </HBox>
                </children>
             </VBox>
-            <AnchorPane fx:id="AP_Usuarios" layoutX="30.0" layoutY="30.0" prefHeight="820.0" prefWidth="1068.0" style="-fx-background-color: #797979;" stylesheets="@../../../Values/Styles.css" visible="false" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <AnchorPane fx:id="AP_Usuarios" layoutX="30.0" layoutY="30.0" prefHeight="820.0" prefWidth="1068.0" style="-fx-background-color: #797979;" stylesheets="@../../../Values/Styles.css" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                <children>
                   <Label layoutX="14.0" layoutY="14.0" text="Usuarios">
                      <font>
                         <Font name="System Bold" size="36.0" />
                      </font>
                   </Label>
+                  <Text layoutX="183.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
                </children>
                <styleClass>
                   <String fx:value="white-bg" />
@@ -1179,7 +1184,7 @@
                   </HBox>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="AP_Editar_Actividad" layoutX="48.0" layoutY="83.0" prefHeight="713.0" prefWidth="759.0" styleClass="white-bg" stylesheets="@../../../Values/Styles.css">
+            <AnchorPane fx:id="AP_Editar_Actividad" layoutX="48.0" layoutY="83.0" prefHeight="713.0" prefWidth="759.0" styleClass="white-bg" stylesheets="@../../../Values/Styles.css" visible="false">
                <children>
                   <Label layoutX="14.0" layoutY="14.0" styleClass="shadow" stylesheets="@../../../Values/Styles.css" text="Editar Actividad" textFill="#0000004d">
                      <font>

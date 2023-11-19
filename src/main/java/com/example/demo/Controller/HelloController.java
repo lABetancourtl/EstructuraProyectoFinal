@@ -290,6 +290,10 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (!gestor.isAdmin()) {
+            BT_Crear_Proceso.setDisable(true);
+        }
+
         TA_Descripccion_Actividad_Seleccionada.setWrapText(true);
         TA_Descripcion_Tarea_Seleccionada.setWrapText(true);
 
@@ -312,6 +316,8 @@ public class HelloController implements Initializable {
         inicializar_Datos_TW_Tarea(TC_Nombre_Tarea, TC_Obligatorio_Tarea, TC_NombreTareaDisponible_In_EditarActividad, TC_ObligatorioTareaDisponible_In_EditarActividad);
         inicializar_Datos_TW_Usuario(TC_ID_Usuario, TC_Nombre_Usuario, TC_Tipo_Usuario);
     }
+
+
 
     private void inicializar_Datos_TW_Actividad(TableColumn TC_Nombre_Actividad, TableColumn TC_Obligatorio_Actividad, TableColumn TC_Nombre_ActividadDisponible_In_Crear_Proceso, TableColumn TC_Obligatorio_ActividadDisponible_In_Crear_Proceso) {
         TC_Nombre_Actividad.setCellValueFactory(new PropertyValueFactory<>("nombre_Actividad"));

@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 import com.example.demo.HelloApplication;
 import com.example.demo.Modelo.Administrador;
+import com.example.demo.Modelo.Gestor;
 import com.example.demo.Modelo.Usuario;
 import com.example.demo.Modelo.UsuarioNoEncontradoException;
 import javafx.event.ActionEvent;
@@ -21,6 +22,7 @@ import java.util.List;
 
 
 public class LoginController {
+    Gestor gestor = new Gestor();
 
     @FXML
     private PasswordField textPassword_Contrasena;
@@ -42,20 +44,22 @@ public class LoginController {
 
     @FXML
     void ingresar(ActionEvent event)  {
-//        iniciar();
-        cargarVentanaPrincipal();
+        iniciar();
+//        cargarVentanaPrincipal();
     }
 
     private void iniciar()  {
         String usuario = textField_Usuario.getText();
         String contrasena = textPassword_Contrasena.getText();
-
         try {
             boolean[] acceso = iniciarSesion(usuario, contrasena);
+            if (acceso[0] ) {
+                if (acceso[1]) {
+                    cargarVentanaPrincipal();
+                    gestor.setAdmin(true);
+                } else {
 
-            if (acceso[0]) {
-
-               // principal.cargarVentanaPrincipal();
+                }
                 cargarVentanaPrincipal();
             }
         } catch (UsuarioNoEncontradoException e) {
@@ -70,23 +74,22 @@ public class LoginController {
         boolean[] datosLogin = new boolean[2];
         datosLogin[0] = false;
         datosLogin[1] = false;
-        for (Usuario u: getListaUsuarios()) {
-            if (usuario.equals(u.getUsuario()) && contrasena.equals(u.getContrasena())){ // Comparar el usuario y la contraseña
-                datosLogin[0] = true;
-                datosLogin[1] = false;
-                codigoUsuario = u.getContrasena();
-                userConectado = u;
-                break; // Salir del ciclo
-            }
-        }
-        for (Administrador a: getListaAdmi()) { // Recorrer la lista de administradores
-            if (usuario.equals(a.getUsuario()) && contrasena.equals(a.getContrasena())){ // Comparar el usuario y la contraseña
-                datosLogin[0] = true; // El usuario existe
-                datosLogin[1] = true; // El usuario es administrador
-                break; // Salir del ciclo
-            }
+//        for (Usuario u: getListaUsuarios()) {
+        for (String id: gestor.getListaUsuarios().keySet()) {
+            if (usuario.equals(gestor.getListaUsuarios().get(id).getIdUsuario()) && contrasena.equals(gestor.getListaUsuarios().get(id).getContrasena())) {
 
+//            if (usuario.equals(u.getUsuario()) && contrasena.equals(u.getContrasena())){ // Comparar el usuario y la
+                datosLogin[0] = true;
+
+                if (!gestor.getListaUsuarios().get(id).equals("Normal")) {
+                    datosLogin[1] = true;
+                }
+//                codigoUsuario = u.getContrasena();
+//                userConectado = u;
+                break; // Salir del ciclo
+            }
         }
+
         if(datosLogin[0] == false) { // Si el usuario no existe
             throw new UsuarioNoEncontradoException("mal"); // Lanzar la excepción
         }
