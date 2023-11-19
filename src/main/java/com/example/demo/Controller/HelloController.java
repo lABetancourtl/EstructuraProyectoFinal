@@ -1140,6 +1140,16 @@ public class HelloController implements Initializable {
         AP_Editar_Actividad.setVisible(false);
     }
     @FXML
+    void AC_BT_Remove_In_EditarActividad(ActionEvent event) {
+        if (tareaPresenteSeleccionada_In_editarActividades != null) {
+            boolean rsMensaje = mostrarMensajeConfirmacion("¿Seguro de remover la tarea?"+"\n"+"Al aceptar, se removera la tarea de la actividad");
+            if (rsMensaje) {
+                actividadSeleccionada.getTareas().remove(tareaDisponibleSeleccionada_In_editarActividades);
+                inicializar_Datos_TW_tareasPresentes_In_editarActividad(TC_NombreTareaPresente_In_EditarActividad, TC_ObligatorioTareaPresente_In_EditarActividad);
+            }
+        }
+    }
+    @FXML
     void AC_BT_AddTarea_In_EditarActividad(ActionEvent event) {
         if (tareaDisponibleSeleccionada_In_editarActividades != null) {
             String name = tareaDisponibleSeleccionada_In_editarActividades.getNombre_Tarea();
@@ -1156,17 +1166,6 @@ public class HelloController implements Initializable {
             mostrarMensaje("Notificacion", "Tarea no agregado", "No selecciono ninguna tarea valido", Alert.AlertType.INFORMATION);
         }
 
-    }
-    //metodos
-    @FXML
-    void AC_BT_Remove_In_EditarActividad(ActionEvent event) {
-        if (tareaPresenteSeleccionada_In_editarActividades != null) {
-            boolean rsMensaje = mostrarMensajeConfirmacion("¿Seguro de remover la tarea?"+"\n"+"Al aceptar, se removera la tarea de la actividad");
-            if (rsMensaje) {
-                actividadSeleccionada.getTareas().remove(tareaDisponibleSeleccionada_In_editarActividades);
-                inicializar_Datos_TW_tareasPresentes_In_editarActividad(TC_NombreTareaPresente_In_EditarActividad, TC_ObligatorioTareaPresente_In_EditarActividad);
-            }
-        }
     }
 
 }
