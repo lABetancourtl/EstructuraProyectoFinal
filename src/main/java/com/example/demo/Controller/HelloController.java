@@ -1168,4 +1168,15 @@ public class HelloController implements Initializable {
 
     }
 
+    @FXML
+    void AC_BT_Remove_In_EditarActividad(ActionEvent event) {
+        if (tareaPresenteSeleccionada_In_editarActividades != null) {
+            boolean rsMensaje = mostrarMensajeConfirmacion("¿Seguro de remover la tarea?"+"\n"+"Al aceptar, se removera la tarea de la actividad");
+            if (rsMensaje) {
+                actividadSeleccionada.getTareas().remove(tareaDisponibleSeleccionada_In_editarActividades);
+                inicializar_Datos_TW_tareasPresentes_In_editarActividad(TC_NombreTareaPresente_In_EditarActividad, TC_ObligatorioTareaPresente_In_EditarActividad);
+            }
+        }
+    }
+
 }
