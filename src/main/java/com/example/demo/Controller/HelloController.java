@@ -309,6 +309,8 @@ public class HelloController implements Initializable {
         gestor.cargarDatosArchivos();
 
 //        gestor.cargarTareas();
+        gestor.inicializarDatos();
+//        gestor.cargarDatosArchivos();
         TA_Descripccion_Actividad_Seleccionada.setWrapText(true);
         TA_Descripcion_Tarea_Seleccionada.setWrapText(true);
 

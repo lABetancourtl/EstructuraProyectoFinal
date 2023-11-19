@@ -61,7 +61,6 @@ public class LoginController {
                 } else {
 
                 }
-                cargarVentanaPrincipal();
             }
         } catch (UsuarioNoEncontradoException e) {
             // Mostrar un mensaje de error al usuario

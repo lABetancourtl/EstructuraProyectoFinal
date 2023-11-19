@@ -15,7 +15,6 @@ public class Gestor implements Serializable {
     private static final long serialVersionUID = 1L;
     private HashMap<String, Usuario> listaUsuarios = new HashMap<>();
 
-
     boolean admin = false;
     private HashMap<String, Proceso> listaProcesos = new HashMap<>();
     private LinkedList<Actividad> listaActividades = new LinkedList<>();
@@ -84,6 +83,30 @@ public class Gestor implements Serializable {
         }
     }
 
+    public void cargarActividades() throws IOException {
+        try {
+            LinkedList<Actividad> listaActividades1 = Persistencia.cargarActividades();
+            listaActividades = listaActividades1;
+        } catch (FileNotFoundException e){
+            System.out.println("Archivo no encontrado: " + e.getMessage());
+            e.printStackTrace();
+        }catch (IOException e){
+            System.out.println("Error de entrada/salida: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    public void cargarTareas() throws  IOException{
+        try {
+            Queue<Tarea> listaTareas1 = Persistencia.cargarTareas();
+            listaTareas1 = listaTareas;
+        } catch (FileNotFoundException e){
+            System.out.println("Archivo no encontrado: " + e.getMessage());
+            e.printStackTrace();
+        }catch (IOException e){
+            System.out.println("Error de entrada/salida: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
 
     public void inicializarDatos() {
