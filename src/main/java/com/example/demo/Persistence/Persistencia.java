@@ -155,6 +155,7 @@ public class Persistencia {
         }
         return listaActividades;
     }
+
     public static Queue<Tarea> cargarTareas() throws IOException {
         List<String> lineas = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_TAREA);
         Queue<Tarea> colaTareas = new LinkedList<>();
@@ -175,3 +176,4 @@ public class Persistencia {
         return colaTareas;
     }
 }
+
