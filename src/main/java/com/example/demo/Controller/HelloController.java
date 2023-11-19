@@ -1157,6 +1157,7 @@ public class HelloController implements Initializable {
         }
 
     }
+    //metodos
     @FXML
     void AC_BT_Remove_In_EditarActividad(ActionEvent event) {
         if (tareaPresenteSeleccionada_In_editarActividades != null) {
