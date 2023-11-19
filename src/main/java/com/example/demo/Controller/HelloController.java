@@ -109,6 +109,10 @@ public class HelloController implements Initializable {
     @FXML
     private Button BT_Cancelar_In_EditarProceso;
     @FXML
+    private Button BT_Eliminar_Actividad;
+    @FXML
+    private Button BT_Crear_Tarea;
+    @FXML
     private Button BT_Add_Actividad_In_Crear_Proceso;
     @FXML
     private Button BT_Editar_Tarea;
@@ -130,6 +134,8 @@ public class HelloController implements Initializable {
     private Button BT_Actualizar_In_EditarProceso1;
     @FXML
     private Button BT_Cancelar_In_EditarProceso1;
+    @FXML
+    private Button BT_Crear_Activiad;
     @FXML
     private Button BT_RemoveProceso_In_EditarUsuario;
     @FXML
@@ -305,8 +311,16 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        gestor.inicializarDatos();
-//        gestor.cargarDatosArchivos();
+        if (!gestor.isAdmin()) {
+            BT_Crear_Proceso.setDisable(false);
+            BT_Eliminar_Proceso.setDisable(false);
+            BT_Crear_Activiad.setDisable(false);
+            BT_Eliminar_Actividad.setDisable(false);
+            BT_Crear_Tarea.setDisable(false);
+        }
+
+//        gestor.inicializarDatos();
+        gestor.cargarDatosArchivos();
         TA_Descripccion_Actividad_Seleccionada.setWrapText(true);
         TA_Descripcion_Tarea_Seleccionada.setWrapText(true);
 
@@ -600,7 +614,6 @@ public class HelloController implements Initializable {
             }
         }
     }
-
     @FXML
     void AC_BT_Eliminar_Actividad(ActionEvent event) {
         boolean actividadEliminada = false, rsMensaje;
@@ -624,8 +637,28 @@ public class HelloController implements Initializable {
         }
     }
 
+//    @FXML
+//    void AC_BT_Eliminar_Tarea(ActionEvent event) throws IOException {
+//        if (tareaSeleccionada != null) {
+//            boolean rsMensaje = mostrarMensajeConfirmacion("¿Seguro de eliminar la tarea?\nAl aceptar, la tarea será eliminada");
+//            if (rsMensaje) {
+//                Iterator<Tarea> iterator = gestor.getListaTareas().iterator();
+//                while (iterator.hasNext()) {
+//                    Tarea tarea = iterator.next();
+//                    if (tarea.equals(tareaSeleccionada)) {
+//                        iterator.remove(); // Elimina la tarea del iterator
+//
+//                        gestor.guardaArchivos();
+//                        mostrarMensaje("Notificación", "Tarea eliminada", "La tarea se eliminó con éxito", Alert.AlertType.INFORMATION);
+//                        break;
+//                    }
+//                }
+//                inicializar_Datos_TW_Tarea(TC_Nombre_Tarea, TC_Obligatorio_Tarea, TC_NombreTareaDisponible_In_EditarActividad, TC_ObligatorioTareaDisponible_In_EditarActividad);
+//            }
+//        }
+//    }
     @FXML
-    void AC_BT_Eliminar_Tarea(ActionEvent event) {
+    void AC_BT_Eliminar_Tarea(ActionEvent event) throws IOException {
         boolean tareaEliminada = false, rsMensaje;
         if (tareaSeleccionada != null) {
             rsMensaje = mostrarMensajeConfirmacion("¿Seguro de eliminar la tarea?" + "\n" + "Al aceptar, la tarea sera eliminada");
@@ -635,12 +668,15 @@ public class HelloController implements Initializable {
                     Tarea tarea = iterator.next();
                     if (tarea.equals(tareaSeleccionada)) {
                         iterator.remove();
-
+//                        gestor.getListaTareas().remove(tareaEliminada);
                         tareaEliminada = true;
                         break;
                     }
                 }
                 if (tareaEliminada) {
+                    gestor.getListaTareas().remove(tareaSeleccionada);
+                    gestor.guardaArchivosTarea();
+                    gestor.cargarDatosArchivos();
                     inicializar_Datos_TW_Tarea(TC_Nombre_Tarea, TC_Obligatorio_Tarea, TC_NombreTareaDisponible_In_EditarActividad, TC_ObligatorioTareaDisponible_In_EditarActividad);
                     mostrarMensaje("Notificacion", "Tarea eliminada", "La tarea se elimino con exito", Alert.AlertType.INFORMATION);
                 }
@@ -814,10 +850,8 @@ public class HelloController implements Initializable {
         String nombreCrearActividad = TF_Nombre_Crear_Actividad.getText();
         String obligatorioCrearActividad = CB_Obligatorio_Crear_Actividad.getValue();
         String descripcionCrearActividad = TA_Descripcion_Crear_Actividad.getText();
-
         String posicionCrearProceso = TF_Posicion_Crear_Actividad.getText();
         String opcionesCrearProceso = CB_Opciones_CrearActividad.getValue();
-
         if (!nombreCrearActividad.isEmpty() && !descripcionCrearActividad.isEmpty() && !obligatorioCrearActividad.isEmpty() && nameActividadIsRepetido(nombreCrearActividad, gestor.getListaActividades())) {
             Actividad actividad = new Actividad();
             actividad.setNombre_Actividad(nombreCrearActividad);
@@ -867,13 +901,20 @@ public class HelloController implements Initializable {
             tarea.setDescripcion_Tarea(descripcionCrearTarea);
             switch (opcionCrearTarea) {
                 case 0,1:
-                    Object ultimoElemento = ((LinkedList<Tarea>) gestor.getListaTareas()).getLast();
-                    if (((LinkedList<Tarea>) gestor.getListaTareas()).getLast().getEsObligatoria_Tarea().equals("Si") || (((LinkedList<Tarea>) gestor.getListaTareas()).getLast().getEsObligatoria_Tarea().equals("No")) && obligatorioCrearTarea.equals("Si")) {
+                    LinkedList<Tarea> listaTareas = (LinkedList<Tarea>) gestor.getListaTareas();
+                    if (!listaTareas.isEmpty()) {
+                        Object ultimoElemento = listaTareas.getLast();
+                        if (((LinkedList<Tarea>) gestor.getListaTareas()).getLast().getEsObligatoria_Tarea().equals("Si") || (((LinkedList<Tarea>) gestor.getListaTareas()).getLast().getEsObligatoria_Tarea().equals("No")) && obligatorioCrearTarea.equals("Si")) {
+                            gestor.getListaTareas().add(tarea);
+                            ultimaTareaCreada = tarea;
+                            mostrarMensaje("Crear Tarea", "Creación Exitosa", "Se creo con exito la tarea", Alert.AlertType.INFORMATION);
+                        } else {
+                            mostrarMensaje("Crear Actividad", "Creación Fallida", "No se permiten tareas opcionales seguidas", Alert.AlertType.INFORMATION);
+                        }
+                    } else {
                         gestor.getListaTareas().add(tarea);
                         ultimaTareaCreada = tarea;
                         mostrarMensaje("Crear Tarea", "Creación Exitosa", "Se creo con exito la tarea", Alert.AlertType.INFORMATION);
-                    } else {
-                        mostrarMensaje("Crear Actividad", "Creación Fallida", "No se permiten tareas opcionales seguidas", Alert.AlertType.INFORMATION);
                     }
                     break;
                 case 2:
@@ -889,41 +930,9 @@ public class HelloController implements Initializable {
                             mostrarMensaje("Crear Actividad", "Creación Fallida", "No se permiten tareas opcionales seguidas", Alert.AlertType.INFORMATION);
                         }
                     }
-
-
-//                    int i = Integer.parseInt(TF_Posicion_Dada_Crear_Tarea.getText()); // indice dado por el usuario
-//                    if (i > 0 && i <= gestor.getListaTareas().size()) { // validadion si el indice dado esta en el rango del tamanio de la lista ciendo el minimo valor 1
-//                        LinkedList<Tarea> ax = new LinkedList<>();
-//                        ax.addAll(gestor.getListaTareas());
-//
-//                        if (i == 1 && ax.get(i-1).getEsObligatoria_Tarea() == "Si") {
-//                            ax.add(i-1,tarea);
-//                            gestor.getListaTareas().clear();
-//                            gestor.getListaTareas().addAll(ax);
-//                            mostrarMensaje("Crear Tarea", "Creación Exitosa", "Se creo con exito la tarea", Alert.AlertType.INFORMATION);
-//                            break;
-//                        }
-//                        if (ax.get(i-1).getEsObligatoria_Tarea() == "Si" && i != 1 && i == gestor.getListaTareas().size()) {
-//                            ax.add(i,tarea);
-//                            gestor.getListaTareas().clear();
-//                            gestor.getListaTareas().addAll(ax);
-//                            mostrarMensaje("Crear Tarea", "Creación Exitosa", "Se creo con exito la tarea", Alert.AlertType.INFORMATION);
-//                            break;
-//                        }
-//                        if (ax.get(i-1).getEsObligatoria_Tarea() == "Si" && ax.get(i).getEsObligatoria_Tarea() == "Si"  && i != 1 && i != gestor.getListaTareas().size()) {
-//                            ax.add(i,tarea);
-//                            gestor.getListaTareas().clear();
-//                            gestor.getListaTareas().addAll(ax);
-//                            mostrarMensaje("Crear Tarea", "Creación Exitosa", "Se creo con exito la tarea", Alert.AlertType.INFORMATION);
-//                            break;
-//                        } else {
-//                            mostrarMensaje("Crear Actividad", "Creación Fallida", "No se permite tareas opcioales seguidas", Alert.AlertType.INFORMATION);
-//                            break;
-//                        }
-//                    }
                     break;
             }
-            gestor.guardaArchivos();
+            gestor.guardaArchivosTarea();
             AP_Crear_Tarea.setVisible(false);
             inicializar_Datos_TW_Tarea(TC_Nombre_Tarea, TC_Obligatorio_Tarea, TC_NombreTareaDisponible_In_EditarActividad, TC_ObligatorioTareaDisponible_In_EditarActividad);
         } else {
