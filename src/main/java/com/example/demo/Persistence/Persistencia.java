@@ -156,4 +156,24 @@ public class Persistencia {
         System.out.println(listaActividades.size());
         return listaActividades;
     }
+    public static Queue<Tarea> cargarTareas() throws IOException {
+        List<String> lineas = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_TAREA);
+        Queue<Tarea> colaTareas = new LinkedList<>();
+
+        for (String linea : lineas) {
+            String[] partes = linea.split("\\$");
+            if (partes.length < 4) {
+                continue; // O manejar el error de formato
+            }
+
+            Tarea tarea = new Tarea();
+            tarea.setNombre_Tarea(partes[0]);
+            tarea.setDescripcion_Tarea(partes[1]);
+            tarea.setEsObligatoria_Tarea(String.valueOf(Boolean.parseBoolean(partes[2])));
+            tarea.setTiempoDuracion_Tarea(String.valueOf(Integer.parseInt(partes[3])));
+
+            colaTareas.add(tarea);
+        }
+        return colaTareas;
+    }
 }

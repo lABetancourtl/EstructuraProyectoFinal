@@ -85,8 +85,6 @@ public class Gestor implements Serializable {
         }
     }
 
-    public void cargarActividades()  {
-
     public void cargarActividades() throws IOException {
         try {
             LinkedList<Actividad> listaActividades1 = Persistencia.cargarActividades();
@@ -111,18 +109,6 @@ public class Gestor implements Serializable {
             e.printStackTrace();
         }
     }
-    public void cargarTareas() throws  IOException{
-        try {
-            Queue<Tarea> listaTareas1 = Persistencia.cargarTareas();
-            listaTareas1 = listaTareas;
-        } catch (FileNotFoundException e){
-            System.out.println("Archivo no encontrado: " + e.getMessage());
-            e.printStackTrace();
-        }catch (IOException e){
-            System.out.println("Error de entrada/salida: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
 
 
     public void inicializarDatos() {
@@ -143,24 +129,6 @@ public class Gestor implements Serializable {
         lista.add(actividad);
     }
 
-    public void inicializarDatos() {
-        Usuario usuario = new Usuario("123", "123", "Anderson", "123", "Administrador");
-        Actividad actividad = new Actividad();
-        Actividad actividad1 = new Actividad("Comer", "3 veces al dia", "Si");
-        LinkedList<Actividad> lista = new LinkedList<>();
-        Proceso proceso1 = new Proceso("12", "Cocinar", lista);
-        Proceso proceso2 = new Proceso("34", "Planchar", lista);
-        Tarea tarea = new Tarea("Anderson", "salir", "Si", "60");
-
-        listaProcesos.put(proceso1.getId_Proceso(), proceso1);
-        listaProcesos.put(proceso2.getId_Proceso(), proceso2);
-        listaUsuarios.put(usuario.getIdUsuario(), usuario);
-
-        listaActividades.add(actividad1);
-        listaTareas.add(tarea);
-
-        lista.add(actividad);
-    }
 
 
     // Aqui edito Ruben
