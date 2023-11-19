@@ -1,0 +1,68 @@
+.search-box{
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 100;
+}
+
+.search-crear{
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 10;
+}
+
+.transparent{
+    -fx-background-color: rgba(0,0,0,0);
+  }
+
+.search-button{
+    -fx-background-color: #828282;
+    -fx-background-radius: 30;
+}
+
+.right-bar{
+    -fx-background-color: #B2B2B2;
+
+}
+
+.shadow{
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.5), 10.0 , 0.0 , 0.0 , 10.0);
+}
+
+.search-boxOptions{
+    -fx-background-color: #839192;
+    -fx-background-radius: 10;
+}
+
+.white-bg{
+    -fx-background-color:  #797979;
+    -fx-background-radius: 10px;
+}
+
+.panel-actvidad-seleccionada{
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 10px;
+}
+
+
+.button:hover {
+    -fx-background-color: #000000;
+    -fx-color: white;
+    -fx-text-fill: red;
+}
+
+.tablas-view{  /*CE2D4F  OTRO COLOR QUE ME GUSTO*/
+    -fx-background-color: #BDBDBD;
+    -fx-background-radius: 10px;
+}
+
+.bordes-buscador{
+    -fx-background-radius: 10px;
+}
+
+.texto-detalle{
+    -fx-background-color: #000000;
+    -fx-background-radius: 0px;
+}
+
+
+
+
+
