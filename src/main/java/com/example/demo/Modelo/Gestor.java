@@ -6,7 +6,10 @@ import com.example.demo.Persistence.Persistencia;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Gestor implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -87,10 +90,7 @@ public class Gestor implements Serializable {
             listaTareas = Persistencia.cargarTareas();
 
 //            cargarActividades();
-//            cargarTareas();
- // Asigna las tareas cargadas a la variable de instancia
-            // Utiliza listaProcesos según sea necesario
-
+            cargarTareas();
         } catch (FileNotFoundException e) {
             System.out.println("Archivo no encontrado: " + e.getMessage());
             e.printStackTrace();
@@ -133,19 +133,20 @@ public class Gestor implements Serializable {
     }
 
 
-
     // Aqui edito Ruben
-    public HashMap<String,Proceso> buscarActividad(String nombreActividad) {
-        HashMap<String, Proceso> procesosConActividad = new HashMap<>();
+    public ArrayList<Proceso> buscarActividad(String nombreActividad) {
+        ArrayList<Proceso> procesosConActividad = new ArrayList<>();
+
+        HashMap<String, Proceso> listaProcesos = getListaProcesos();
+
 
             for (Proceso proceso : listaProcesos.values()) {
-                System.out.println("Buscando procesos");
                 LinkedList<Actividad> actividades = proceso.getLista_Actividades_In_Proceso();
 
                 for (Actividad actividad : actividades) {
                     if (actividad.getNombre_Actividad() != null && actividad.getNombre_Actividad().equals(nombreActividad)) {
                         System.out.println("Añadir proceso");
-                        procesosConActividad.put(proceso.getId_Proceso(),proceso);
+                        procesosConActividad.add(proceso);
                         break;
                     }
                 }

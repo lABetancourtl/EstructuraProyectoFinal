@@ -294,7 +294,7 @@ public class HelloController implements Initializable {
     @FXML
     private TableColumn TC_ObligatorioTareaUsuarioSeleccionado;
 
-    //Aqui edito Ruben
+//Aqui edito Ruben
     @FXML
     private Button BT_BuscadorGeneral;
     @FXML
@@ -319,10 +319,8 @@ public class HelloController implements Initializable {
             BT_Crear_Tarea.setDisable(false);
         }
 
-        gestor.inicializarDatos();
-//        gestor.cargarDatosArchivos();
-
-
+//        gestor.inicializarDatos();
+        gestor.cargarDatosArchivos();
         TA_Descripccion_Actividad_Seleccionada.setWrapText(true);
         TA_Descripcion_Tarea_Seleccionada.setWrapText(true);
 
@@ -477,7 +475,6 @@ public class HelloController implements Initializable {
             TA_Descripcion_Tarea_Seleccionada.setText(a);
         }
     }
-
     public ObservableList convertirHasmap(HashMap<String, Proceso> listaProcesoss) {
         ObservableList<Proceso> a = FXCollections.observableArrayList();
         for (String id : listaProcesoss.keySet()) {
@@ -489,7 +486,6 @@ public class HelloController implements Initializable {
         }
         return a;
     }
-
     private ObservableList convertirHasmapUsuario(HashMap<String, Usuario> listaUsuarios) {
         ObservableList<Usuario> a = FXCollections.observableArrayList();
         for (String id : listaUsuarios.keySet()) {
@@ -524,7 +520,7 @@ public class HelloController implements Initializable {
     @FXML
     void AC_Add_Actividad_In_Crear_Proceso(ActionEvent event) {
         if (actividadDisponibleSeleccionadaInEditarProceso != null) {
-            String name = actividadDisponibleSeleccionadaInEditarProceso.getNombre_Actividad();
+        String name = actividadDisponibleSeleccionadaInEditarProceso.getNombre_Actividad();
             if (AP_Editar_Proceso.isVisible() && nameActividadIsRepetido(name, procesoSeleccionado.getLista_Actividades_In_Proceso())) {
                 procesoSeleccionado.getLista_Actividades_In_Proceso().add(actividadDisponibleSeleccionadaInEditarProceso);
                 inicializar_Datos_TW_Actividades_In_Editar_Proceso(TC_Editar_NombreActividadInProceso, TC_Editar_ObligarorioActividadInProceso);
@@ -538,11 +534,10 @@ public class HelloController implements Initializable {
             mostrarMensaje("Notificacion", "Actividad no agregada", "No selecciono ninguna actividad valida", Alert.AlertType.INFORMATION);
         }
     }
-
     @FXML
     void AC_BT_RemoveActividad_In_Crear_Proceso(ActionEvent event) {
         if (actividadDelProcesoSeleccionadaInEditarProceso != null) {
-            boolean rsMensaje = mostrarMensajeConfirmacion("¿Seguro de eliminar remover la actividad?" + "\n" + "Al aceptar, se removera la actividad en el proceso");
+            boolean rsMensaje = mostrarMensajeConfirmacion("¿Seguro de eliminar remover la actividad?"+"\n"+"Al aceptar, se removera la actividad en el proceso");
             if (rsMensaje) {
                 procesoSeleccionado.getLista_Actividades_In_Proceso().remove(actividadDelProcesoSeleccionadaInEditarProceso);
                 inicializar_Datos_TW_Actividades_In_Editar_Proceso(TC_Editar_NombreActividadInProceso, TC_Editar_ObligarorioActividadInProceso);
@@ -570,7 +565,6 @@ public class HelloController implements Initializable {
             opcionCrearActividad = 3;
         }
     }
-
     @FXML
     void AC_CB_Opciones_CrearActividad(ActionEvent event) {
         RadioButton_TF_Posicion_Crear_Actividad.setSelected(false);
@@ -593,7 +587,6 @@ public class HelloController implements Initializable {
             opcionCrearTarea = 1;
         }
     }
-
     @FXML
     void AC_RadioButton_PosicionDada_Crear_Tarea(ActionEvent event) {
         if (RadioButton_PosicionDada_Crear_Tarea.isSelected()) {
@@ -612,7 +605,7 @@ public class HelloController implements Initializable {
     void AC_Eliminar_Proceso(ActionEvent event) throws IOException {
         boolean rsMensaje = false;
         if (procesoSeleccionado != null) {
-            rsMensaje = mostrarMensajeConfirmacion("¿Seguro de eliminar el proceso?" + "\n" + "Al aceptar, el proceso sera eliminado");
+            rsMensaje = mostrarMensajeConfirmacion("¿Seguro de eliminar el proceso?"+"\n"+"Al aceptar, el proceso sera eliminado");
             if (rsMensaje) {
                 String key = procesoSeleccionado.getId_Proceso();
                 gestor.eliminarProceso(key);
@@ -713,7 +706,6 @@ public class HelloController implements Initializable {
     void AC_BT_Cancelar_In_EditarProceso(ActionEvent event) {
         AP_Editar_Proceso.setVisible(false);
     }
-
     @FXML
     void AC_BT_Guardar_In_EditarProceso(ActionEvent event) {
 
@@ -770,6 +762,8 @@ public class HelloController implements Initializable {
     }
 
 
+
+
     private void configureNumericTextField(TextField textField) {
         UnaryOperator<TextFormatter.Change> filter = change -> {
             String newText = change.getControlNewText();
@@ -804,7 +798,6 @@ public class HelloController implements Initializable {
     void AC_Crear_Proceso(ActionEvent event) {
         AP_Crear_Proceso.setVisible(true);
     }
-
     //Metodos para curd Proceso con Persistencia
     @FXML
     void AC_Fin_Crear_Proceso(ActionEvent event) throws IOException {
@@ -830,25 +823,23 @@ public class HelloController implements Initializable {
         }
         limpiar_Campos_Crear_Proceso();
     }
-
     @FXML
     void AC_Eliminar_Usuario(ActionEvent event) {
         boolean rsMensaje = false;
         if (usuarioSeleccionado != null) {
-            rsMensaje = mostrarMensajeConfirmacion("¿Seguro de eliminar el usuario?" + "\n" + "Al aceptar, el usuario sera eliminado");
+            rsMensaje = mostrarMensajeConfirmacion("¿Seguro de eliminar el usuario?"+"\n"+"Al aceptar, el usuario sera eliminado");
             String key = usuarioSeleccionado.getIdUsuario();
             gestor.getListaUsuarios().remove(key);
             inicializar_Datos_TW_Usuario(TC_ID_Usuario, TC_Nombre_Usuario, TC_Tipo_Usuario);
             mostrarMensaje("Notificacion", "Usuario eliminado", "El usuario se elimino con exito", Alert.AlertType.INFORMATION);
         }
     }
-
     //Funcion para actualizar el proceso
     public void ActualizarProceso(String idProceso, String nuevoNombre) {
-        try {
+        try{
             gestor.actualizarProceso(procesoSeleccionado.getId_Proceso(), procesoSeleccionado.getNombre_Proceso());
             Persistencia.guardarProceso(gestor.getListaProcesos());
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
@@ -873,13 +864,13 @@ public class HelloController implements Initializable {
                     break;
                 case 2:
                     int index = gestor.getListaActividades().indexOf(ultimaActividadCreada);
-                    gestor.getListaActividades().add(index + 1, actividad);
+                    gestor.getListaActividades().add(index+1, actividad);
                     ultimaActividadCreada = actividad;
                     break;
                 case 3:
                     int i = Integer.parseInt(TF_Posicion_Crear_Actividad.getText());
                     if (i <= gestor.getListaActividades().size() && i > 0) {
-                        gestor.getListaActividades().add(i - 1, actividad);
+                        gestor.getListaActividades().add(i-1,actividad);
                         ultimaActividadCreada = actividad;
                     }
                     break;
@@ -909,7 +900,7 @@ public class HelloController implements Initializable {
             tarea.setTiempoDuracion_Tarea(duracionCrearTarea);
             tarea.setDescripcion_Tarea(descripcionCrearTarea);
             switch (opcionCrearTarea) {
-                case 0, 1:
+                case 0,1:
                     LinkedList<Tarea> listaTareas = (LinkedList<Tarea>) gestor.getListaTareas();
                     if (!listaTareas.isEmpty()) {
                         Object ultimoElemento = listaTareas.getLast();
@@ -930,8 +921,8 @@ public class HelloController implements Initializable {
                     int i = Integer.parseInt(TF_Posicion_Dada_Crear_Tarea.getText());
                     if (i > 0 && i <= gestor.getListaTareas().size()) {
                         LinkedList<Tarea> ax = new LinkedList<>(gestor.getListaTareas());
-                        if ((i == 1 || "Si".equals(ax.get(i - 2).getEsObligatoria_Tarea())) && "Si".equals(ax.get(i - 1).getEsObligatoria_Tarea())) {
-                            ax.add(i - 1, tarea);
+                        if ((i == 1 || "Si".equals(ax.get(i-2).getEsObligatoria_Tarea())) && "Si".equals(ax.get(i-1).getEsObligatoria_Tarea())) {
+                            ax.add(i-1, tarea);
                             gestor.getListaTareas().clear();
                             gestor.getListaTareas().addAll(ax);
                             mostrarMensaje("Crear Tarea", "Creación Exitosa", "Se creó con éxito la tarea", Alert.AlertType.INFORMATION);
@@ -958,7 +949,6 @@ public class HelloController implements Initializable {
         }
         return true;
     }
-
     private boolean nameActividadIsRepetido(String nombreCrearActividad, LinkedList<Actividad> listaActividades) {
         for (Actividad actividad : listaActividades) {
             if (actividad.getNombre_Actividad().equals(nombreCrearActividad)) {
@@ -987,12 +977,10 @@ public class HelloController implements Initializable {
             AP_Editar_Tarea.setVisible(true);
         }
     }
-
     @FXML
     void AC_BT_Cancelar_Editar_Tarea(ActionEvent event) {
-        AP_Editar_Tarea.setVisible(false);
+            AP_Editar_Tarea.setVisible(false);
     }
-
     @FXML
     void AC_BT_Fin_Actualizar_Tarea(ActionEvent event) {
         String nombre = TF_Nombre_Editar_Tarea.getText();
@@ -1059,7 +1047,6 @@ public class HelloController implements Initializable {
             inicializar_Datos_TW_Procesos_In_Editar_Usuario(TC_IdProcesoUsuario_In_EditarUsuario, TC_NombreProcesoUsuario_In_EditarUsuario);
         }
     }
-
     @FXML
     void AC_Crear_Usuario(ActionEvent event) {
         AP_Crear_Usuario.setVisible(true);
@@ -1079,7 +1066,7 @@ public class HelloController implements Initializable {
             usuario.setNombreUsuario(nombre);
             usuario.setTipoUsuario(tipo);
 
-            gestor.getListaUsuarios().put(id, usuario);
+            gestor.getListaUsuarios().put(id,usuario);
             Persistencia.guardarUsuario(gestor.getListaUsuarios());
             mostrarMensaje("Crear Usuario", "Creación Exitosa", "Se creo con exito el usuario", Alert.AlertType.INFORMATION);
             limpiar_Campos_Crear_Usuario();
@@ -1104,7 +1091,7 @@ public class HelloController implements Initializable {
     @FXML
     void AC_BT_RemoveProceso_In_EditarUsuario(ActionEvent event) {
         if (procesosDelUsuarioSeleccionadoInEditarUsuario != null) {
-            boolean rsMensaje = mostrarMensajeConfirmacion("¿Seguro de remover el proceso?" + "\n" + "Al aceptar, se removera el proceso del usuario");
+            boolean rsMensaje = mostrarMensajeConfirmacion("¿Seguro de remover el proceso?"+"\n"+"Al aceptar, se removera el proceso del usuario");
             if (rsMensaje) {
                 usuarioSeleccionado.getListaProcesosDelUsuario().remove(procesosDelUsuarioSeleccionadoInEditarUsuario.getId_Proceso());
                 inicializar_Datos_TW_Procesos_In_Editar_Usuario(TC_IdProcesoUsuario_In_EditarUsuario, TC_NombreProcesoUsuario_In_EditarUsuario);
@@ -1117,11 +1104,11 @@ public class HelloController implements Initializable {
         if (procesoDisponibleSeleccionadoInEditarUsuario != null) {
             String name = procesoDisponibleSeleccionadoInEditarUsuario.getNombre_Proceso();
             if (AP_Editar_Usuario.isVisible() && nameProcesoIsRepetido(name, usuarioSeleccionado.getListaProcesosDelUsuario())) {
-                usuarioSeleccionado.getListaProcesosDelUsuario().put(procesoDisponibleSeleccionadoInEditarUsuario.getId_Proceso(), procesoDisponibleSeleccionadoInEditarUsuario);
+                usuarioSeleccionado.getListaProcesosDelUsuario().put(procesoDisponibleSeleccionadoInEditarUsuario.getId_Proceso(),procesoDisponibleSeleccionadoInEditarUsuario);
                 inicializar_Datos_TW_Procesos_In_Editar_Usuario(TC_IdProcesoUsuario_In_EditarUsuario, TC_NombreProcesoUsuario_In_EditarUsuario);
                 TW_ProcesosDisponibles_In_Crear_Usuario.getSelectionModel().clearSelection();
                 mostrarMensaje("Notificacion", "Proceso agregado", "Este proceso fue agregado al usuario", Alert.AlertType.INFORMATION);
-            } else {
+            } else{
                 TW_ProcesosDisponibles_In_Crear_Usuario.getSelectionModel().clearSelection();
                 mostrarMensaje("Notificacion", "Proceso no agregado", "Este proceso ya pertence al usuario", Alert.AlertType.INFORMATION);
             }
@@ -1160,7 +1147,6 @@ public class HelloController implements Initializable {
             inicializar_Datos_TW_tareasPresentes_In_editarActividad(TC_NombreTareaPresente_In_EditarActividad, TC_ObligatorioTareaPresente_In_EditarActividad);
         }
     }
-
     @FXML
     void AC_BT_Actualizar_In_EditarActividad(ActionEvent event) {
         String nombre = TF_Nombre_EditarActividad.getText();
@@ -1174,7 +1160,6 @@ public class HelloController implements Initializable {
         }
         AP_Editar_Actividad.setVisible(false);
     }
-
     @FXML
     void AC_BT_Cancelar_In_EditarActividad(ActionEvent event) {
         AP_Editar_Actividad.setVisible(false);
@@ -1198,13 +1183,13 @@ public class HelloController implements Initializable {
         }
 
     }
-
+    
     //Ruben
 
     @FXML
     void AC_BT_Remove_In_EditarActividad(ActionEvent event) {
         if (tareaPresenteSeleccionada_In_editarActividades != null) {
-            boolean rsMensaje = mostrarMensajeConfirmacion("¿Seguro de remover la tarea?" + "\n" + "Al aceptar, se removera la tarea de la actividad");
+            boolean rsMensaje = mostrarMensajeConfirmacion("¿Seguro de remover la tarea?"+"\n"+"Al aceptar, se removera la tarea de la actividad");
             if (rsMensaje) {
                 actividadSeleccionada.getTareas().remove(tareaDisponibleSeleccionada_In_editarActividades);
                 inicializar_Datos_TW_tareasPresentes_In_editarActividad(TC_NombreTareaPresente_In_EditarActividad, TC_ObligatorioTareaPresente_In_EditarActividad);
@@ -1257,17 +1242,63 @@ public class HelloController implements Initializable {
         }
     }
 
+
     private String obtenerTipoBusqueda() {
 
         return null;
     }
+
+    /// Aqui edito Ruben
+
+    @FXML
+    void buscadoGeneral(ActionEvent event) {
+
+        String opcionSelecionada = CB_OpcionBusquedad.getValue();
+
+        if (opcionSelecionada.equalsIgnoreCase("Actividad")) {
+
+            String nombreActividad = TF_BuscadorGeneral.getText();
+            ArrayList<Proceso> procesosConActividad = gestor.buscarActividad(nombreActividad);
+
+            if (procesosConActividad.isEmpty()) {
+                // No se encontró la actividad en ningún proceso
+                TA_DecripcionBusquedad.setText("No se encuentra la actividad " + nombreActividad + " en ningún proceso.");
+                System.out.println("No se encontró en ningún proceso");
+
+            } else {
+                // Se encontró la actividad en al menos un proceso
+                StringBuilder resultado = new StringBuilder("Se encontró la actividad " + nombreActividad + " en los siguientes procesos:\n");
+
+                for (Proceso proceso : procesosConActividad) {
+                    resultado.append(proceso.toString()).append("\n");
+                    resultado.append(nombreActividad).append(" es la actividad número ").append(proceso.obtenerNumeroActividad(nombreActividad)).append(" de este proceso\n\n");
+
+                    // Obtener la actividad
+                    Actividad actividadEncontrada = gestor.obtenerActividadPorNombre(nombreActividad);
+                    if (actividadEncontrada != null) {
+                        // Mostrar la descripción de la actividad
+                        resultado.append("Descripción de la actividad: ").append(actividadEncontrada.getDescripcion_Actividad()).append("\n");
+
+                        // Obtener tareas asociadas
+                        LinkedList<Tarea> tareasAsociadas = (LinkedList<Tarea>) actividadEncontrada.getTareas();
+                        if (!tareasAsociadas.isEmpty()) {
+                            // Mostrar las tareas asociadas
+                            resultado.append("Tareas asociadas:\n");
+                            for (Tarea tarea : tareasAsociadas) {
+                                resultado.append(tarea.toString()).append("\n");
+                            }
+                        } else {
+                            // No hay tareas asociadas
+                            resultado.append("No tiene tareas asociadas.\n");
+                        }
+                    }
+                }
 
 
    
 
     /**
      * Deshabilitar botones de usuario si escoge que es una actividad lo que busca
-     *
      * @param event
      */
     @FXML
@@ -1278,12 +1309,13 @@ public class HelloController implements Initializable {
         if (opcionSelecionada.equals("Actividad")) {
             RB_DesdeActual.setDisable(true);
             RB_DesdeInicio.setDisable(true);
-        } else {
+        }else {
             RB_DesdeActual.setDisable(false);
             RB_DesdeInicio.setDisable(false);
         }
 
     }
+
 
 
 }

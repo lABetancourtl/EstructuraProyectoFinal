@@ -5,7 +5,6 @@ import com.example.demo.Modelo.Proceso;
 import com.example.demo.Modelo.Tarea;
 import com.example.demo.Modelo.Usuario;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -73,10 +72,10 @@ public class Persistencia {
             LinkedList<Tarea> listaTareas = new LinkedList<>();
             if (tareas != null) {
                 for (Tarea tarea : tareas) {
-                    contenidoAuxiliar += tarea.getNombre_Tarea() + "@";
+                    contenidoAuxiliar += tarea.getNombre_Tarea() + "$";
                 }
             }
-            contenido += actividad.getNombre_Actividad() + ";" + actividad.getDescripcion_Actividad() + ";" + actividad.getEsObligatoria_Actividad() + ";" + contenidoAuxiliar + "\n";
+            contenido += actividad.getNombre_Actividad() + "@" + actividad.getDescripcion_Actividad() + "@" + actividad.getEsObligatoria_Actividad() + "@" + contenidoAuxiliar + "\n";
         }
 
         ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_ACTIVIDAD, contenido, false); // Cambié 'true' a 'false' para sobrescribir el archivo
@@ -86,7 +85,7 @@ public class Persistencia {
     public static void guardarTareas(Queue<Tarea> listaTareas) throws IOException {
         String contenido = "";
         for (Tarea tarea : listaTareas) {
-            contenido = tarea.getNombre_Tarea() + ";" + tarea.getDescripcion_Tarea() + ";" + tarea.getEsObligatoria_Tarea() + ";" + tarea.getTiempoDuracion_Tarea() + "\n";
+            contenido = tarea.getNombre_Tarea() + "$" + tarea.getDescripcion_Tarea() + "$" + tarea.getEsObligatoria_Tarea() + "$" + tarea.getTiempoDuracion_Tarea() + "\n";
         }
         ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_TAREA, contenido, false);
     }
@@ -102,8 +101,7 @@ public class Persistencia {
         }
         ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_USUARIOS, contenido, true);
     }
-
-    public static HashMap<String, Proceso> cargarProcesos() throws IOException {
+    public static HashMap<String, Proceso> cargarProcesos () throws IOException {
         HashMap<String, Proceso> listaProcesosCargados = new HashMap<>();
         List<String> contenido = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_PROCESO);
         String linea;
@@ -121,9 +119,6 @@ public class Persistencia {
         }
         return listaProcesosCargados;
     }
-
-    //Este es el metodo bueno
-
     public static LinkedList<Actividad> cargarActividades() throws IOException {
         LinkedList<Actividad> listaActividades = new LinkedList<>();
         List<String> lineas = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_ACTIVIDAD);
@@ -160,19 +155,12 @@ public class Persistencia {
         List<String> lineas = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_TAREA);
         Queue<Tarea> colaTareas = new LinkedList<>();
         for (String linea : lineas) {
-
-            String[] partes = linea.split(";");
-//            if (partes.length < 4) {
-//                continue; // O manejar el error de formato
-//            }
-
+            String[] partes = linea.split("\\$");
             Tarea tarea = new Tarea();
             tarea.setNombre_Tarea(partes[0]);
             tarea.setDescripcion_Tarea(partes[1]);
             tarea.setEsObligatoria_Tarea(partes[2]);
-
 //            tarea.setEsObligatoria_Tarea(String.valueOf(Boolean.parseBoolean(partes[2])));
-
             tarea.setTiempoDuracion_Tarea(String.valueOf(Integer.parseInt(partes[3])));
             colaTareas.add(tarea);
         }
