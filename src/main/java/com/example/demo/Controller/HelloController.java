@@ -86,6 +86,8 @@ public class HelloController implements Initializable {
     @FXML
     private Button BT_Archivos;
     @FXML
+    private Button BT_Remove_In_EditarActividad;
+    @FXML
     private Button BT_Editar_Proceso;
     @FXML
     private Button BT_Crear_Proceso;
@@ -131,8 +133,7 @@ public class HelloController implements Initializable {
     private Button BT_RemoveProceso_In_EditarUsuario;
     @FXML
     private Button BT_Add_Proceso_In_EditarUsuario;
-    @FXML
-    private Button BT_Remove_In_EditarActividad;
+
     @FXML
     private Button BT_AddTarea_In_EditarActividad;
     @FXML
@@ -1139,6 +1140,7 @@ public class HelloController implements Initializable {
     void AC_BT_Cancelar_In_EditarActividad(ActionEvent event) {
         AP_Editar_Actividad.setVisible(false);
     }
+
     @FXML
     void AC_BT_AddTarea_In_EditarActividad(ActionEvent event) {
         if (tareaDisponibleSeleccionada_In_editarActividades != null) {
@@ -1158,7 +1160,6 @@ public class HelloController implements Initializable {
 
     }
 
-    //Ruben
     @FXML
     void AC_BT_Remove_In_EditarActividad(ActionEvent event) {
         if (tareaPresenteSeleccionada_In_editarActividades != null) {
@@ -1169,4 +1170,5 @@ public class HelloController implements Initializable {
             }
         }
     }
+
 }
