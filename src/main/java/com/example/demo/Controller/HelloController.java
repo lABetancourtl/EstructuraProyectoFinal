@@ -31,6 +31,8 @@ public class HelloController implements Initializable {
     private Actividad actividadDisponibleSeleccionadaInEditarProceso;
     private Actividad actividadDelProcesoSeleccionadaInEditarProceso;
     private Tarea tareaSeleccionada;
+    private Tarea tareaPresenteSeleccionada_In_editarActividades;
+    private Tarea tareaDisponibleSeleccionada_In_editarActividades;
     private Tarea ultimaTareaCreada;
     private Proceso procesoSeleccionado;
     private Proceso procesoDisponibleSeleccionadoInEditarUsuario;
@@ -44,6 +46,8 @@ public class HelloController implements Initializable {
 //    ObservableList<Proceso> procesosList = FXCollections.observableArrayList(procesos);
 //    TreeSet<Proceso> estudiantes = gestor.();
 
+    @FXML
+    private AnchorPane AP_Editar_Actividad;
     @FXML
     private AnchorPane AP_Archivos;
     @FXML
@@ -69,6 +73,8 @@ public class HelloController implements Initializable {
 
     @FXML
     private Button BT_Actualizar_In_EditarUsuario;
+    @FXML
+    private Button BT_Editar_Actividad;
     @FXML
     private Button BT_Cancelar_In_EditarUsuario;
     @FXML
@@ -125,6 +131,14 @@ public class HelloController implements Initializable {
     private Button BT_RemoveProceso_In_EditarUsuario;
     @FXML
     private Button BT_Add_Proceso_In_EditarUsuario;
+    @FXML
+    private Button BT_Remove_In_EditarActividad;
+    @FXML
+    private Button BT_AddTarea_In_EditarActividad;
+    @FXML
+    private Button BT_Actualizar_In_EditarActividad;
+    @FXML
+    private Button BT_Cancelar_In_EditarActividad;
 
     @FXML
     private RadioButton RadioButton_AlFinal_Crear_Tarea;
@@ -134,6 +148,8 @@ public class HelloController implements Initializable {
     private RadioButton RadioButton_TF_Posicion_Crear_Actividad;
 
     //TexField
+    @FXML
+    private TextField TF_Nombre_EditarActividad;
     @FXML
     private TextField TF_Id_Crear_Proceso;
     @FXML
@@ -152,6 +168,8 @@ public class HelloController implements Initializable {
     private TextField TF_Id_EditarUsuario;
     @FXML
     private TextField TF_Nombre_EditarUsuario;
+    @FXML
+    private ComboBox<String> CB_Obligatorio_In_EditarActividad;
     @FXML
     private ComboBox<String> CB_Obligatorio_Crear_Actividad;
     @FXML
@@ -186,6 +204,14 @@ public class HelloController implements Initializable {
     private TextArea TA_Descripcion_Crear_Tarea;
 
     //Table View
+    @FXML
+    private TableView TW_ActividadesUsuarioSeleccionado;
+    @FXML
+    private TableView TW_TareasUsuarioSeleccionado;
+    @FXML
+    private TableView TW_TareasDisponibles_InEditarActividad;
+    @FXML
+    private TableView TW_TareasPresentes_In_EditarActividad;
     @FXML
     private TableView TW_Actividades_In_Crear_Proceso;
     @FXML
@@ -242,6 +268,23 @@ public class HelloController implements Initializable {
     private TableColumn TC_IdProcesosDisponibles_In_EditarUsuario;
     @FXML
     private TableColumn TC_NombreProcesosDisponibles_In_EditarUsuario;
+    @FXML
+    private TableColumn TC_NombreTareaPresente_In_EditarActividad;
+    @FXML
+    private TableColumn TC_ObligatorioTareaPresente_In_EditarActividad;
+    @FXML
+    private TableColumn TC_NombreTareaDisponible_In_EditarActividad;
+    @FXML
+    private TableColumn TC_ObligatorioTareaDisponible_In_EditarActividad;
+
+    @FXML
+    private TableColumn TC_NombreActividadUsuarioSeleccionado;
+    @FXML
+    private TableColumn TC_ObligatorioActividadUsuarioSeleccionado;
+    @FXML
+    private TableColumn TC_NombreTareaUsuarioSelccionado;
+    @FXML
+    private TableColumn TC_ObligatorioTareaUsuarioSeleccionado;
 
 
     @Override
@@ -256,6 +299,7 @@ public class HelloController implements Initializable {
         configureNumericTextField(TF_Id_Crear_Usuario);
 
         CB_Obligatorio_Crear_Actividad.getItems().addAll("Si", "No");
+        CB_Obligatorio_In_EditarActividad.getItems().addAll("Si", "No");
         CB_Opciones_CrearActividad.getItems().addAll("Crear al final de todo", "Crear despues de la ultima creaccion");
         CB_Obligatorio_Crear_Tarea.getItems().addAll("Si", "No");
         CB_Obligatorio_Editar_Tarea.getItems().addAll("Si", "No");
@@ -264,7 +308,7 @@ public class HelloController implements Initializable {
 
         inicializar_Datos_TW_Proceso(TC_ID_Proceso, TC_Nombre_Proceso, TC_IdProcesosDisponibles_In_EditarUsuario, TC_NombreProcesosDisponibles_In_EditarUsuario);
         inicializar_Datos_TW_Actividad(TC_Nombre_Actividad, TC_Obligatorio_Actividad, TC_Nombre_ActividadDisponible_In_Crear_Proceso, TC_Obligatorio_ActividadDisponible_In_Crear_Proceso);
-        inicializar_Datos_TW_Tarea(TC_Nombre_Tarea, TC_Obligatorio_Tarea);
+        inicializar_Datos_TW_Tarea(TC_Nombre_Tarea, TC_Obligatorio_Tarea, TC_NombreTareaDisponible_In_EditarActividad, TC_ObligatorioTareaDisponible_In_EditarActividad);
         inicializar_Datos_TW_Usuario(TC_ID_Usuario, TC_Nombre_Usuario, TC_Tipo_Usuario);
     }
 
@@ -288,6 +332,18 @@ public class HelloController implements Initializable {
 
         TW_ActividadesDisponibles_In_Crear_Proceso.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             actividadDisponibleSeleccionadaInEditarProceso = (Actividad) newSelection;
+        });
+    }
+
+    private void inicializar_Datos_TW_tareasPresentes_In_editarActividad(TableColumn tcNombreTareaPresenteInEditarActividad, TableColumn tcObligatorioTareaPresenteInEditarActividad) {
+        tcNombreTareaPresenteInEditarActividad.setCellValueFactory(new PropertyValueFactory<>("nombre_Tarea"));
+        tcObligatorioTareaPresenteInEditarActividad.setCellValueFactory(new PropertyValueFactory<>("esObligatoria_Tarea"));
+
+        TW_TareasPresentes_In_EditarActividad.getItems().clear();
+        TW_TareasPresentes_In_EditarActividad.setItems(cargarDatos(actividadSeleccionada.getTareas()));
+
+        TW_TareasPresentes_In_EditarActividad.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            tareaPresenteSeleccionada_In_editarActividades = (Tarea) newSelection;
         });
     }
 
@@ -326,16 +382,26 @@ public class HelloController implements Initializable {
     }
 
 
-    private void inicializar_Datos_TW_Tarea(TableColumn tcNombreTarea, TableColumn tcObligatorioTarea) {
+    private void inicializar_Datos_TW_Tarea(TableColumn tcNombreTarea, TableColumn tcObligatorioTarea, TableColumn TC_NombreTareaDisponible_In_EditarActividad, TableColumn TC_ObligatorioTareaDisponible_In_EditarActividad) {
         tcNombreTarea.setCellValueFactory(new PropertyValueFactory<>("nombre_Tarea"));
         tcObligatorioTarea.setCellValueFactory(new PropertyValueFactory<>("esObligatoria_Tarea"));
+
+        TC_NombreTareaDisponible_In_EditarActividad.setCellValueFactory(new PropertyValueFactory<>("nombre_Tarea"));
+        TC_ObligatorioTareaDisponible_In_EditarActividad.setCellValueFactory(new PropertyValueFactory<>("esObligatoria_Tarea"));
 
         TW_Tareas.getItems().clear();
         TW_Tareas.setItems(cargarDatos(gestor.getListaTareas()));
 
+        TW_TareasDisponibles_InEditarActividad.getItems().clear();
+        TW_TareasDisponibles_InEditarActividad.setItems(cargarDatos(gestor.getListaTareas()));
+
         TW_Tareas.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             tareaSeleccionada = (Tarea) newSelection;
             mostrarDescripccionTareaSeleccionada(tareaSeleccionada);
+        });
+
+        TW_TareasDisponibles_InEditarActividad.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            tareaDisponibleSeleccionada_In_editarActividades = (Tarea) newSelection;
         });
     }
 
@@ -556,7 +622,7 @@ public class HelloController implements Initializable {
                     }
                 }
                 if (tareaEliminada) {
-                    inicializar_Datos_TW_Tarea(TC_Nombre_Tarea, TC_Obligatorio_Tarea);
+                    inicializar_Datos_TW_Tarea(TC_Nombre_Tarea, TC_Obligatorio_Tarea, TC_NombreTareaDisponible_In_EditarActividad, TC_ObligatorioTareaDisponible_In_EditarActividad);
                     mostrarMensaje("Notificacion", "Tarea eliminada", "La tarea se elimino con exito", Alert.AlertType.INFORMATION);
                 }
             }
@@ -791,6 +857,8 @@ public class HelloController implements Initializable {
                         mostrarMensaje("Crear Actividad", "Creación Fallida", "No se permiten tareas opcionales seguidas", Alert.AlertType.INFORMATION);
                     }
 
+
+
                     break;
                 case 2:
                     int i = Integer.parseInt(TF_Posicion_Dada_Crear_Tarea.getText());
@@ -805,6 +873,8 @@ public class HelloController implements Initializable {
                             mostrarMensaje("Crear Actividad", "Creación Fallida", "No se permiten tareas opcionales seguidas", Alert.AlertType.INFORMATION);
                         }
                     }
+
+
 //                    int i = Integer.parseInt(TF_Posicion_Dada_Crear_Tarea.getText()); // indice dado por el usuario
 //                    if (i > 0 && i <= gestor.getListaTareas().size()) { // validadion si el indice dado esta en el rango del tamanio de la lista ciendo el minimo valor 1
 //                        LinkedList<Tarea> ax = new LinkedList<>();
@@ -839,11 +909,20 @@ public class HelloController implements Initializable {
             }
             gestor.guardaArchivos();
             AP_Crear_Tarea.setVisible(false);
-            inicializar_Datos_TW_Tarea(TC_Nombre_Tarea, TC_Obligatorio_Tarea);
+            inicializar_Datos_TW_Tarea(TC_Nombre_Tarea, TC_Obligatorio_Tarea, TC_NombreTareaDisponible_In_EditarActividad, TC_ObligatorioTareaDisponible_In_EditarActividad);
         } else {
             mostrarMensaje("Crear Actividad", "Creación Fallida", "No se creo la tarea", Alert.AlertType.INFORMATION);
         }
         limpiar_Campos_Crear_Tarea();
+    }
+
+    private boolean nameTareaIsRepetido(String name, Queue<Tarea> listaProcesosDelUsuario) {
+        for (Tarea tarea : listaProcesosDelUsuario) {
+            if (tarea.getNombre_Tarea().equals(name)) {
+                return false;
+            }
+        }
+        return true;
     }
     private boolean nameActividadIsRepetido(String nombreCrearActividad, LinkedList<Actividad> listaActividades) {
         for (Actividad actividad : listaActividades) {
@@ -891,7 +970,7 @@ public class HelloController implements Initializable {
             tareaSeleccionada.setEsObligatoria_Tarea(obligatoio);
             tareaSeleccionada.setTiempoDuracion_Tarea(duracion);
             tareaSeleccionada.setDescripcion_Tarea(descripcion);
-            inicializar_Datos_TW_Tarea(TC_Nombre_Tarea, TC_Obligatorio_Tarea);
+            inicializar_Datos_TW_Tarea(TC_Nombre_Tarea, TC_Obligatorio_Tarea, TC_NombreTareaDisponible_In_EditarActividad, TC_ObligatorioTareaDisponible_In_EditarActividad);
         } else {
             mostrarMensaje("Editar Actividad", "Edicion Fallida", "No se permiten tareas opcionales seguidas", Alert.AlertType.INFORMATION);
         }
@@ -1034,4 +1113,60 @@ public class HelloController implements Initializable {
         AP_Editar_Usuario.setVisible(false);
     }
 
+    @FXML
+    void AC_BT_Editar_Actividad(ActionEvent event) {
+        if (actividadSeleccionada != null) {
+            AP_Editar_Actividad.setVisible(true);
+            TF_Nombre_EditarActividad.setText(actividadSeleccionada.getNombre_Actividad());
+            CB_Obligatorio_In_EditarActividad.setValue(actividadSeleccionada.getEsObligatoria_Actividad());
+            inicializar_Datos_TW_tareasPresentes_In_editarActividad(TC_NombreTareaPresente_In_EditarActividad, TC_ObligatorioTareaPresente_In_EditarActividad);
+        }
+    }
+    @FXML
+    void AC_BT_Actualizar_In_EditarActividad(ActionEvent event) {
+        String nombre = TF_Nombre_EditarActividad.getText();
+        String obligatorio = CB_Obligatorio_In_EditarActividad.getValue();
+
+        if (!nombre.isEmpty() && !obligatorio.isEmpty()) {
+            actividadSeleccionada.setNombre_Actividad(nombre);
+            actividadSeleccionada.setEsObligatoria_Actividad(obligatorio);
+
+            inicializar_Datos_TW_Actividad(TC_Nombre_Actividad, TC_Obligatorio_Actividad, TC_Nombre_ActividadDisponible_In_Crear_Proceso, TC_Obligatorio_ActividadDisponible_In_Crear_Proceso);
+        }
+        AP_Editar_Actividad.setVisible(false);
+    }
+    @FXML
+    void AC_BT_Cancelar_In_EditarActividad(ActionEvent event) {
+        AP_Editar_Actividad.setVisible(false);
+    }
+    @FXML
+    void AC_BT_AddTarea_In_EditarActividad(ActionEvent event) {
+        if (tareaDisponibleSeleccionada_In_editarActividades != null) {
+            String name = tareaDisponibleSeleccionada_In_editarActividades.getNombre_Tarea();
+            if (AP_Editar_Actividad.isVisible() && nameTareaIsRepetido(name, actividadSeleccionada.getTareas())) {
+                actividadSeleccionada.getTareas().add(tareaDisponibleSeleccionada_In_editarActividades);
+                inicializar_Datos_TW_tareasPresentes_In_editarActividad(TC_NombreTareaPresente_In_EditarActividad, TC_ObligatorioTareaPresente_In_EditarActividad);
+                TW_TareasPresentes_In_EditarActividad.getSelectionModel().clearSelection();
+                mostrarMensaje("Notificacion", "Tarea agregado", "Esta tarea fue agregado a la actividad", Alert.AlertType.INFORMATION);
+            } else {
+                TW_TareasPresentes_In_EditarActividad.getSelectionModel().clearSelection();
+                mostrarMensaje("Notificacion", "Tarea no agregado", "Esta tarea ya pertence a la actividad", Alert.AlertType.INFORMATION);
+            }
+        } else {
+            mostrarMensaje("Notificacion", "Tarea no agregado", "No selecciono ninguna tarea valido", Alert.AlertType.INFORMATION);
+        }
+
+    }
+
+    //Ruben
+    @FXML
+    void AC_BT_Remove_In_EditarActividad(ActionEvent event) {
+        if (tareaPresenteSeleccionada_In_editarActividades != null) {
+            boolean rsMensaje = mostrarMensajeConfirmacion("¿Seguro de remover la tarea?"+"\n"+"Al aceptar, se removera la tarea de la actividad");
+            if (rsMensaje) {
+                actividadSeleccionada.getTareas().remove(tareaDisponibleSeleccionada_In_editarActividades);
+                inicializar_Datos_TW_tareasPresentes_In_editarActividad(TC_NombreTareaPresente_In_EditarActividad, TC_ObligatorioTareaPresente_In_EditarActividad);
+            }
+        }
+    }
 }
