@@ -56,12 +56,13 @@ public class LoginController {
             if (acceso[0] ) {
                 if (acceso[1]) {
 
-                    cargarVentanaPrincipal();
+
                     gestor.setAdmin(true);
 
                 } else {
 
                 }
+                cargarVentanaPrincipal();
             }
         } catch (UsuarioNoEncontradoException e) {
             // Mostrar un mensaje de error al usuario

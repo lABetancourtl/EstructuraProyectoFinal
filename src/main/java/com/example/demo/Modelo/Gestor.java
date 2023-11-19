@@ -34,9 +34,7 @@ public class Gestor implements Serializable {
         } else {
             System.out.println("Proceso no creado");
         }
-
     }
-
     public void actualizarProceso(String idProceso, String nuevoNombre) throws IOException {
         if (listaProcesos.containsKey(idProceso)) {
             Proceso proceso = listaProcesos.get(idProceso);
@@ -47,7 +45,6 @@ public class Gestor implements Serializable {
             System.out.println("Proceso no actualizado");
         }
     }
-
     public void eliminarProceso(String idProceso) throws IOException {
         if (listaProcesos.containsKey(idProceso)) {
             listaProcesos.remove(idProceso);
@@ -57,19 +54,43 @@ public class Gestor implements Serializable {
             System.out.println("Proceso no guardado");
         }
     }
+    public void eliminarTarea(String nombre) throws IOException {
+        LinkedList<Tarea> tareas = new LinkedList<>();
+        while (listaTareas.size() > 0) {
+                tareas.add(listaTareas.poll());
+        }
+
+        tareas.remove(nombre);
+
+        System.out.println(listaTareas.size());
+        listaTareas.addAll(tareas);
+        System.out.println(listaTareas.size());
+        guardaArchivos();
+    }
 
     public void guardaArchivos() throws IOException {
         Persistencia.guardarProceso(listaProcesos);
         Persistencia.guardarActividad(listaActividades);
+//        Persistencia.guardarTareas(listaTareas);
+    }
+    public void guardaArchivosTarea() throws IOException {
         Persistencia.guardarTareas(listaTareas);
+
     }
 
     public void cargarDatosArchivos() {
         try {
             listaProcesos = Persistencia.cargarProcesos();
+
             listaActividades = Persistencia.cargarActividades();
-            listaTareas = Persistencia.cargarTareas(); // Asigna las tareas cargadas a la variable de instancia
+
+            listaTareas = Persistencia.cargarTareas();
+
+//            cargarActividades();
+//            cargarTareas();
+ // Asigna las tareas cargadas a la variable de instancia
             // Utiliza listaProcesos según sea necesario
+
         } catch (FileNotFoundException e) {
             System.out.println("Archivo no encontrado: " + e.getMessage());
             e.printStackTrace();
@@ -79,18 +100,6 @@ public class Gestor implements Serializable {
         }
     }
 
-    public void cargarActividades() throws IOException {
-        try {
-            LinkedList<Actividad> listaActividades1 = Persistencia.cargarActividades();
-            listaActividades = listaActividades1;
-        } catch (FileNotFoundException e){
-            System.out.println("Archivo no encontrado: " + e.getMessage());
-            e.printStackTrace();
-        }catch (IOException e){
-            System.out.println("Error de entrada/salida: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
     public void cargarTareas() throws  IOException{
         try {
             Queue<Tarea> listaTareas1 = Persistencia.cargarTareas();
