@@ -56,7 +56,7 @@ public class LoginController {
             if (acceso[0] ) {
                 if (acceso[1]) {
 
-                    cargarVentanaPrincipal();
+                    //cargarVentanaPrincipal();
                     gestor.setAdmin(true);
                 } else {
 

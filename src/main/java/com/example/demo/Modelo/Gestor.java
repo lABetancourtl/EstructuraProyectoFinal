@@ -71,10 +71,9 @@ public class Gestor implements Serializable {
 
     public void cargarDatosArchivos() {
         try {
-            HashMap<String, Proceso> listaProcesos1 = Persistencia.cargarProcesos();
-            listaProcesos = listaProcesos1;
-            cargarActividades();
-            cargarTareas();
+            listaProcesos = Persistencia.cargarProcesos();
+            listaActividades = Persistencia.cargarActividades();
+            listaTareas = Persistencia.cargarTareas(); // Asigna las tareas cargadas a la variable de instancia
             // Utiliza listaProcesos según sea necesario
         } catch (FileNotFoundException e) {
             System.out.println("Archivo no encontrado: " + e.getMessage());
@@ -85,30 +84,6 @@ public class Gestor implements Serializable {
         }
     }
 
-    public void cargarActividades() throws IOException {
-        try {
-            LinkedList<Actividad> listaActividades1 = Persistencia.cargarActividades();
-            listaActividades = listaActividades1;
-        } catch (FileNotFoundException e){
-            System.out.println("Archivo no encontrado: " + e.getMessage());
-            e.printStackTrace();
-        }catch (IOException e){
-            System.out.println("Error de entrada/salida: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-    public void cargarTareas()  {
-        try {
-            Queue<Tarea> listaTareasCargadas = Persistencia.cargarTareas();
-            listaTareas = listaTareasCargadas; // Asigna las tareas cargadas a la variable de instancia
-        } catch (FileNotFoundException e) {
-            System.out.println("Archivo no encontrado: " + e.getMessage());
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("Error de entrada/salida: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
 
 
     public void inicializarDatos() {
