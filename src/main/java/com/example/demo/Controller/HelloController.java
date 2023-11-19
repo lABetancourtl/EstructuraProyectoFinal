@@ -24,6 +24,7 @@ public class HelloController implements Initializable {
     int opcionCrearActividad = 0;
     int opcionCrearTarea = 0;
     Gestor gestor = new Gestor();
+
     TreeSet<Proceso> listaProcesos = new TreeSet<>();
 
     private Actividad ultimaActividadCreada;
@@ -287,13 +288,25 @@ public class HelloController implements Initializable {
     @FXML
     private TableColumn TC_ObligatorioTareaUsuarioSeleccionado;
 
+//Aqui edito Ruben
+    @FXML
+    private Button BT_BuscadorGeneral;
+    @FXML
+    private ComboBox<String> CB_OpcionBusquedad;
+    @FXML
+    private RadioButton RB_DesdeActual;
+    @FXML
+    private RadioButton RB_DesdeInicio;
+    @FXML
+    private TextField TF_BuscadorGeneral;
+    @FXML
+    private TextArea TA_DecripcionBusquedad;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (!gestor.isAdmin()) {
-            BT_Crear_Proceso.setDisable(true);
-        }
-
+//        gestor.inicializarDatos();
+        gestor.cargarDatosArchivos();
         TA_Descripccion_Actividad_Seleccionada.setWrapText(true);
         TA_Descripcion_Tarea_Seleccionada.setWrapText(true);
 
@@ -304,6 +317,7 @@ public class HelloController implements Initializable {
         configureNumericTextField(TF_Id_Crear_Usuario);
 
         CB_Obligatorio_Crear_Actividad.getItems().addAll("Si", "No");
+        CB_OpcionBusquedad.getItems().addAll("Actividad", "Tarea");
         CB_Obligatorio_In_EditarActividad.getItems().addAll("Si", "No");
         CB_Opciones_CrearActividad.getItems().addAll("Crear al final de todo", "Crear despues de la ultima creaccion");
         CB_Obligatorio_Crear_Tarea.getItems().addAll("Si", "No");
@@ -316,8 +330,6 @@ public class HelloController implements Initializable {
         inicializar_Datos_TW_Tarea(TC_Nombre_Tarea, TC_Obligatorio_Tarea, TC_NombreTareaDisponible_In_EditarActividad, TC_ObligatorioTareaDisponible_In_EditarActividad);
         inicializar_Datos_TW_Usuario(TC_ID_Usuario, TC_Nombre_Usuario, TC_Tipo_Usuario);
     }
-
-
 
     private void inicializar_Datos_TW_Actividad(TableColumn TC_Nombre_Actividad, TableColumn TC_Obligatorio_Actividad, TableColumn TC_Nombre_ActividadDisponible_In_Crear_Proceso, TableColumn TC_Obligatorio_ActividadDisponible_In_Crear_Proceso) {
         TC_Nombre_Actividad.setCellValueFactory(new PropertyValueFactory<>("nombre_Actividad"));
@@ -863,9 +875,6 @@ public class HelloController implements Initializable {
                     } else {
                         mostrarMensaje("Crear Actividad", "Creación Fallida", "No se permiten tareas opcionales seguidas", Alert.AlertType.INFORMATION);
                     }
-
-
-
                     break;
                 case 2:
                     int i = Integer.parseInt(TF_Posicion_Dada_Crear_Tarea.getText());
@@ -1165,6 +1174,8 @@ public class HelloController implements Initializable {
         }
 
     }
+    
+    //Ruben
 
     @FXML
     void AC_BT_Remove_In_EditarActividad(ActionEvent event) {
@@ -1176,5 +1187,57 @@ public class HelloController implements Initializable {
             }
         }
     }
+
+
+
+
+
+    /// Aqui edito Ruben
+
+    @FXML
+    void buscadoGeneral(ActionEvent event) {
+
+        String opcionSelecionada = CB_OpcionBusquedad.getValue();
+
+        if (opcionSelecionada.equals("Actividad")) {
+
+            String nombreActividad = TF_BuscadorGeneral.getText();
+            ArrayList<Proceso> procesosConActividad = gestor.buscarActividad(nombreActividad);
+
+            if (procesosConActividad.isEmpty()) {
+                TA_DecripcionBusquedad.setText("No se encontró la actividad " + nombreActividad);
+            } else {
+                StringBuilder resultado = new StringBuilder("Se encontró la actividad " + nombreActividad + " en los siguientes procesos:\n");
+
+                for (Proceso proceso : procesosConActividad) {
+                    resultado.append(proceso.toString()).append("\n");
+                    resultado.append(nombreActividad).append(" es la actividad número ").append(proceso.obtenerNumeroActividad(nombreActividad)).append(" de este proceso\n\n");
+                }
+
+                TA_DecripcionBusquedad.setText(resultado.toString());
+            }
+        }else{
+
+
+
+        }
+    }
+
+    @FXML
+    void opcionesBusquedad(ActionEvent event) {
+
+        String opcionSelecionada = CB_OpcionBusquedad.getValue();
+
+        if (opcionSelecionada.equals("Actividad")) {
+            RB_DesdeActual.setDisable(true);
+            RB_DesdeInicio.setDisable(true);
+        }else {
+            RB_DesdeActual.setDisable(false);
+            RB_DesdeInicio.setDisable(false);
+        }
+
+    }
+
+
 
 }
