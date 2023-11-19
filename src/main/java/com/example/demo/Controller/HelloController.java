@@ -319,9 +319,6 @@ public class HelloController implements Initializable {
             BT_Crear_Tarea.setDisable(false);
         }
 
-//        gestor.inicializarDatos();
-        gestor.cargarDatosArchivos();
-
         gestor.inicializarDatos();
 //        gestor.cargarDatosArchivos();
 

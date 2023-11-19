@@ -87,7 +87,7 @@ public class Gestor implements Serializable {
             listaTareas = Persistencia.cargarTareas();
 
 //            cargarActividades();
-            cargarTareas();
+//            cargarTareas();
  // Asigna las tareas cargadas a la variable de instancia
             // Utiliza listaProcesos según sea necesario
 
