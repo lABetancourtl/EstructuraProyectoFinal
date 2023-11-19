@@ -286,6 +286,20 @@ public class HelloController implements Initializable {
     @FXML
     private TableColumn TC_ObligatorioTareaUsuarioSeleccionado;
 
+//Aqui edito Ruben
+    @FXML
+    private Button BT_BuscadorGeneral;
+    @FXML
+    private ComboBox<String> CB_OpcionBusquedad;
+    @FXML
+    private RadioButton RB_DesdeActual;
+    @FXML
+    private RadioButton RB_DesdeInicio;
+    @FXML
+    private TextField TF_BuscadorGeneral;
+    @FXML
+    private TextArea TA_DecripcionBusquedad;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -299,6 +313,7 @@ public class HelloController implements Initializable {
         configureNumericTextField(TF_Id_Crear_Usuario);
 
         CB_Obligatorio_Crear_Actividad.getItems().addAll("Si", "No");
+        CB_OpcionBusquedad.getItems().addAll("Actividad", "Tarea");
         CB_Obligatorio_In_EditarActividad.getItems().addAll("Si", "No");
         CB_Opciones_CrearActividad.getItems().addAll("Crear al final de todo", "Crear despues de la ultima creaccion");
         CB_Obligatorio_Crear_Tarea.getItems().addAll("Si", "No");
@@ -1167,5 +1182,57 @@ public class HelloController implements Initializable {
             }
         }
     }
+
+
+
+
+
+    /// Aqui edito Ruben
+
+    @FXML
+    void buscadoGeneral(ActionEvent event) {
+
+        String opcionSelecionada = CB_OpcionBusquedad.getValue();
+
+        if (opcionSelecionada.equals("Actividad")) {
+
+            String nombreActividad = TF_BuscadorGeneral.getText();
+            ArrayList<Proceso> procesosConActividad = gestor.buscarActividad(nombreActividad);
+
+            if (procesosConActividad.isEmpty()) {
+                TA_DecripcionBusquedad.setText("No se encontró la actividad " + nombreActividad);
+            } else {
+                StringBuilder resultado = new StringBuilder("Se encontró la actividad " + nombreActividad + " en los siguientes procesos:\n");
+
+                for (Proceso proceso : procesosConActividad) {
+                    resultado.append(proceso.toString()).append("\n");
+                    resultado.append(nombreActividad).append(" es la actividad número ").append(proceso.obtenerNumeroActividad(nombreActividad)).append(" de este proceso\n\n");
+                }
+
+                TA_DecripcionBusquedad.setText(resultado.toString());
+            }
+        }else{
+
+
+
+        }
+    }
+
+    @FXML
+    void opcionesBusquedad(ActionEvent event) {
+
+        String opcionSelecionada = CB_OpcionBusquedad.getValue();
+
+        if (opcionSelecionada.equals("Actividad")) {
+            RB_DesdeActual.setDisable(true);
+            RB_DesdeInicio.setDisable(true);
+        }else {
+            RB_DesdeActual.setDisable(false);
+            RB_DesdeInicio.setDisable(false);
+        }
+
+    }
+
+
 
 }
