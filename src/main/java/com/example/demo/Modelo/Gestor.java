@@ -22,7 +22,6 @@ public class Gestor implements Serializable {
 
 
     public Gestor() {
-
         Usuario usuario = new Usuario("123", "123", "Anderson", "123", "Administrador");
         listaUsuarios.put(usuario.getUsuario(),usuario);
 

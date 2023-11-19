@@ -15,12 +15,22 @@ import java.util.Queue;
 
 public class Persistencia {
 
-    public static final String RUTA_ARCHIVO_TAREA = "src/resources/ArchivoTarea.txt";
-    public static final String RUTA_ARCHIVO_ACTIVIDAD = "src/resources/ArchivoActividad.txt";
-    public static final String RUTA_ARCHIVO_PROCESO = "src/resources/ArchivoProceso.txt";
-    public static final String RUTA_ARCHIVO_USUARIOS = "src/resources/AchivoUsuarios.txt";
+    public static final String RUTA_ARCHIVO_TAREA = "C://td//Archivo_Tarea//ArchivoTarea.txt";
 
+    public static final String RUTA_ARCHIVO_ACTIVIDAD = "C://td//Archivo_Actividad//ArchivoActividad.txt";
 
+    public static final String RUTA_ARCHIVO_PROCESO = "C://td//Achivo_Proceso//ArchivoProceso.txt";
+    public static final String RUTA_ARCHIVO_USUARIOS = "C://td//Achivo_Usuario//AchivoUsuarios.txt";
+
+    //Metodo para guardar los datos del Proceso en un txt seprado por ;
+
+    /*
+     * EXPORTAR PRODUCTO EN ARCHIVO DE TEXTO
+     *
+     * @param idProceso
+     * @param nombreProceso
+     * @throws IOException
+     */
     public static void guardarProceso(HashMap<String, Proceso> listaProceso) throws IOException {
         String contenido = "";
         String contenidoAxuliar = "";
@@ -96,7 +106,6 @@ public class Persistencia {
     }
 
     public static HashMap<String, Proceso> cargarProcesos() throws IOException {
-    public static HashMap<String, Proceso> cargarProcesos () throws IOException {
         HashMap<String, Proceso> listaProcesosCargados = new HashMap<>();
 
         List<String> contenido = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_PROCESO); // Asegúrate de que esta ruta sea correcta
@@ -128,10 +137,6 @@ public class Persistencia {
 //            if (partesActividad.length < 4) {
 //                continue; // O manejar el error de formato
 //            }
-            String[] partesActividad = linea.split("@");
-            if (partesActividad.length < 4) {
-                continue; // O manejar el error de formato
-            }
             Actividad actividad = new Actividad();
             actividad.setNombre_Actividad(partesActividad[0]);
             actividad.setDescripcion_Actividad(partesActividad[1]);
@@ -150,20 +155,6 @@ public class Persistencia {
         }
         return listaActividades;
     }
-            LinkedList<Tarea> tareas = new LinkedList<>();
-            for (String nombreTarea : partesActividad[3].split("\\$")) {
-                if (!nombreTarea.isEmpty()) {
-                    Tarea tarea = new Tarea();
-                    tarea.setNombre_Tarea(nombreTarea);
-                    tareas.add(tarea);
-                }
-            }
-            actividad.setTareas(tareas);
-        }
-        System.out.println(listaActividades.size());
-        return listaActividades;
-    }
-
     public static Queue<Tarea> cargarTareas() throws IOException {
         List<String> lineas = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_TAREA);
         Queue<Tarea> colaTareas = new LinkedList<>();
@@ -184,6 +175,3 @@ public class Persistencia {
         return colaTareas;
     }
 }
-
-}
-
