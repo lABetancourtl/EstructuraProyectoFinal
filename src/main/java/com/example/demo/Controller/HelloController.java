@@ -1181,9 +1181,10 @@ public class HelloController implements Initializable {
     /// Aqui edito Ruben
     @FXML
     void buscadoGeneral(ActionEvent event) {
+        String nombreActividad = TF_BuscadorGeneral.getText();
         String opcionSelecionada = CB_OpcionBusquedad.getValue();
         if (opcionSelecionada.equalsIgnoreCase("Actividad")) {
-            String nombreActividad = TF_BuscadorGeneral.getText();
+
             List<String> procesosConActividad = gestor.buscarActividadesYProcesosAsociados(nombreActividad);
             if (procesosConActividad.isEmpty()) {
                 // No se encontró la actividad en ningún proceso
@@ -1196,13 +1197,35 @@ public class HelloController implements Initializable {
                     // Mostrar la descripción de la actividad
                     TA_DecripcionBusquedad.appendText("Descripción de la actividad: " + "\n"
                             + actividadEncontrada.getDescripcion_Actividad() + "\n"
-                            + actividadEncontrada.getEsObligatoria_Actividad() + "\n");
+                            +"Es obligatoria: " + "\n"
+                            + actividadEncontrada.getEsObligatoria_Actividad() + "\n\n");
+
+                    // Obtener tareas asociadas
+                    LinkedList<Tarea> tareasAsociadas = (LinkedList<Tarea>) actividadEncontrada.getTareas();
+                    if (!tareasAsociadas.isEmpty()) {
+                        // Mostrar las tareas asociadas
+                        TA_DecripcionBusquedad.appendText("Tareas asociadas:\n");
+                        for (Tarea tarea : tareasAsociadas) {
+                            TA_DecripcionBusquedad.appendText(tarea.toString()+"\n");
+                        }
+                    } else {
+                        // No hay tareas asociadas
+                        TA_DecripcionBusquedad.appendText("No tiene tareas asociadas.\n");
+                    }
                 }
             }
 
+        }else {
+
+            String tipoBusqueda = obtenerTipoBusqueda();  // Implementa la lógica para obtener el tipo de búsqueda
+            Tarea tareaEncontrada = gestor.buscarTarea(tipoBusqueda, nombreActividad);
         }
     }
 
+    private String obtenerTipoBusqueda() {
+
+        return null;
+    }
 
 
     @FXML
