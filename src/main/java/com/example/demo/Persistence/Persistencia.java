@@ -124,7 +124,9 @@ public class Persistencia {
         List<String> lineas = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_ACTIVIDAD);
 
         for (String linea : lineas) {
-            String[] partesActividad = linea.split("@");
+
+            String[] partesActividad = linea.split(";");
+
 //            if (partesActividad.length < 4) {
 //                continue; // O manejar el error de formato
 //            }
@@ -133,6 +135,17 @@ public class Persistencia {
             actividad.setDescripcion_Actividad(partesActividad[1]);
             actividad.setEsObligatoria_Actividad(String.valueOf(Boolean.parseBoolean(partesActividad[2])));
             listaActividades.add(actividad);
+
+
+//            LinkedList<Tarea> tareas = new LinkedList<>();
+//            for (String nombreTarea : partesActividad[3].split("@")) {
+//                if (!nombreTarea.isEmpty()) {
+//                    Tarea tarea = new Tarea();
+//                    tarea.setNombre_Tarea(nombreTarea);
+//                    tareas.add(tarea);
+//                }
+//            }
+//            actividad.setTareas(tareas);
 
         }
         return listaActividades;
